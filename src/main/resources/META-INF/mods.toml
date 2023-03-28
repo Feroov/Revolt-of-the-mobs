@@ -3,7 +3,7 @@ loaderVersion="[45,)" #mandatory
 license="All rights reserved"
 [[mods]] #mandatory
 modId="rotm" #mandatory
-version="${file.jarVersion}" #mandatory
+version="1.0-1.19.4" #mandatory
 displayName="Revolt of the Mobs" #mandatory
 logoFile="examplemod.png" #optional
 authors="Feroov" #optional
