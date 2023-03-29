@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 public class ROTM
 {
     public static final String MOD_ID = "rotm";
-    private static final Logger LOGGER = LogUtils.getLogger();
+//    private static final Logger LOGGER = LogUtils.getLogger();
     public ROTM()
     {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
