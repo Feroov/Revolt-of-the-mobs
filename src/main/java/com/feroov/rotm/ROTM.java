@@ -1,10 +1,11 @@
-package com.feroov.frv;
+package com.feroov.rotm;
 
+import com.feroov.rotm.entity.item.ItemsROTM;
+import com.feroov.rotm.entity.item.TabsROTM;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,17 +18,17 @@ import org.slf4j.Logger;
 @Mod(ROTM.MOD_ID)
 public class ROTM
 {
-
     public static final String MOD_ID = "rotm";
     private static final Logger LOGGER = LogUtils.getLogger();
     public ROTM()
     {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(this::commonSetup);
+        ItemsROTM.register(eventBus);
 
+        eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::addCreative);
         MinecraftForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -37,7 +38,10 @@ public class ROTM
 
     private void addCreative(CreativeModeTabEvent.BuildContents event)
     {
-
+        if(event.getTab() == TabsROTM.ROTM_TAB)
+        {
+            event.accept(ItemsROTM.ADMIN_SWORD);
+        }
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
