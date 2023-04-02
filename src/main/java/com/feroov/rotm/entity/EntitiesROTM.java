@@ -27,7 +27,5 @@ public class EntitiesROTM
                     .clientTrackingRange(9).build(new ResourceLocation(ROTM.MOD_ID, "rifle_ammo").toString()));
 
 
-    public static void register(IEventBus eventBus) {
-        ENTITY_TYPES.register(eventBus);
-    }
+    public static void register(IEventBus eventBus) { ENTITY_TYPES.register(eventBus); }
 }

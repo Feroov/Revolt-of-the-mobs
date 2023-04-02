@@ -40,14 +40,12 @@ import java.util.EnumSet;
 public class Gunswine extends Monster implements GeoEntity
 {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Gunswine.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> ATTACK = SynchedEntityData.defineId(Gunswine.class, EntityDataSerializers.INT);
-
-    public float rangeIn = 10.0F;
 
     public Gunswine(EntityType<? extends Monster> entityType, Level level) { super(entityType, level); }
 
-    public static AttributeSupplier setAttributes() {
+    public static AttributeSupplier setAttributes()
+    {
         return Monster.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 33.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0f)
@@ -56,8 +54,10 @@ public class Gunswine extends Monster implements GeoEntity
                 .add(Attributes.MOVEMENT_SPEED, 0.4f).build();
     }
 
+
     @Override
-    protected void registerGoals() {
+    protected void registerGoals()
+    {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
@@ -77,13 +77,51 @@ public class Gunswine extends Monster implements GeoEntity
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+    protected SoundEvent getAmbientSound()
+    {
+        this.playSound(SoundEvents.PIG_AMBIENT, 1.0F, 0.2F);
+        return null;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
+    {
+        this.playSound(SoundEvents.PIG_HURT, 1.0F, 0.2F);
+        return null;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound()
+    {
+        this.playSound(SoundEventsROTM.GUNSWINE_DEATH.get(), 1.0F, 1.0F);
+        return null;
+    }
+
+    @Override
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 1.65F; }
+
+    @Override
+    protected void tickDeath()
+    {
+        ++this.deathTime;
+        if (this.deathTime == 60 && !this.level.isClientSide())
+        {
+            this.level.broadcastEntityEvent(this, (byte)60);
+            this.remove(RemovalReason.KILLED);
+        }
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar)
+    {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
         controllerRegistrar.add(new AnimationController<>(this, "attackController", 0, this::attack));
     }
 
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
-        if(tAnimationState.isMoving()) {
+    private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState)
+    {
+        if(tAnimationState.isMoving())
+        {
             tAnimationState.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
             return PlayState.CONTINUE;
         }
@@ -111,28 +149,158 @@ public class Gunswine extends Monster implements GeoEntity
     public AnimatableInstanceCache getAnimatableInstanceCache() { return cache; }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData() { super.defineSynchedData(); this.entityData.define(ATTACK, 1); }
+
+
+    public void setAttackingState(int time) { this.entityData.set(ATTACK, time); }
+
+    public static class GunswineRangedAttackGoal extends Goal
     {
-        super.defineSynchedData();
-        this.entityData.define(ATTACK, 1);
+        private final Gunswine mob;
+        private final Gunswine rangedAttackMob;
+        @Nullable
+        private LivingEntity target;
+        private int attackTime = -1;
+        private int seeTime, statecheck;
+        private final double attackIntervalMin, attackIntervalMax, speedModifier;
+        private final float attackRadius, attackRadiusSqr;
+        private boolean strafingClockwise, strafingBackwards;
+        private int strafingTime = -1;
+
+        public GunswineRangedAttackGoal(Gunswine gunswine, double speedIn, double dpsIn, float rangeIn, int state)
+        {
+            this(gunswine, speedIn, dpsIn, dpsIn, rangeIn, state);
+        }
+
+        public GunswineRangedAttackGoal(Gunswine femaleHunter, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
+        {
+            if (femaleHunter == null)
+            {
+                throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
+            }
+            else
+            {
+                this.rangedAttackMob =  femaleHunter;
+                this.mob =  femaleHunter;
+                this.speedModifier = speedIn;
+                this.attackIntervalMin = atckIntervalMin;
+                this.attackIntervalMax = atckIntervalMax;
+                this.attackRadius = atckRadius;
+                this.attackRadiusSqr = atckRadius * atckRadius;
+                this.statecheck = state;
+
+                this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            }
+        }
+
+
+        public boolean canUse()
+        {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (livingentity != null && livingentity.isAlive())
+            {
+                this.target = livingentity;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public boolean canContinueToUse() { return this.canUse() || !this.mob.getNavigation().isDone(); }
+
+        public void stop() {
+            this.target = null;
+            this.seeTime = 0;
+            this.attackTime = -1;
+        }
+
+        public boolean requiresUpdateEveryTick() { return true; }
+
+        public void tick()
+        {
+            LivingEntity livingentity = this.mob.getTarget();
+            double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
+            boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
+            if (flag) { ++this.seeTime; } else { this.seeTime = 0; }
+
+            if (!(d0 > (double)this.attackRadiusSqr) && this.seeTime >= 5) {
+                this.mob.getNavigation().stop();
+            } else { this.mob.getNavigation().moveTo(this.target, this.speedModifier); }
+
+            if (livingentity != null) {
+                boolean flag1 = this.seeTime > 0;
+                if (flag != flag1) { this.seeTime = 0;}
+                if (flag) { ++this.seeTime;} else {--this.seeTime;}
+
+                // strafing going backwards type stuff
+                if (!(d0 > (double)this.attackRadiusSqr) && this.seeTime >= 20) {
+                    this.mob.getNavigation().stop();
+                    ++this.strafingTime;
+                } else { this.mob.getNavigation().moveTo(livingentity, this.speedModifier); this.strafingTime = -1; }
+
+                if (this.strafingTime >= 20)
+                {
+                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) { this.strafingClockwise = !this.strafingClockwise; }
+                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) { this.strafingBackwards = !this.strafingBackwards; }
+                    this.strafingTime = 0;
+                }
+
+                if (this.strafingTime > -1) {
+                    if (d0 > (double)(this.attackRadiusSqr * 0.75F)) { this.strafingBackwards = false; }
+                    else if (d0 < (double)(this.attackRadiusSqr * 0.25F)) { this.strafingBackwards = true; }
+                    //speed shit
+                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.30F : 0.30F, this.strafingClockwise ? 0.30F : -0.30F);
+                    this.mob.lookAt(livingentity, 30.0F, 30.0F);
+                }
+                this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+                if (--this.attackTime == 0) {
+                    if (!flag) { return; }
+                    if (this.mob.isUsingItem()) {
+                        if (!flag && this.seeTime < -60) { this.mob.stopUsingItem(); }
+                        else if (flag) { int i = this.mob.getTicksUsingItem();
+                            if (i >= 19) { this.mob.setAttackingState(statecheck); }
+                            if (i >= 20) { this.mob.stopUsingItem(); }
+                        }
+                    }
+                    float f = (float)Math.sqrt(d0) / this.attackRadius;
+                    float f1 = Mth.clamp(f, 0.1F, 1.0F);
+                    this.rangedAttackMob.performRangedAttack(this.target, f1);
+                    this.attackTime = Mth.floor(f * (float)(this.attackIntervalMax - this.attackIntervalMin) + (float)this.attackIntervalMin);
+                } else if (this.attackTime < 0) {
+                    this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0)
+                            / (double)this.attackRadius, (double)this.attackIntervalMin, (double)this.attackIntervalMax));
+                }
+
+            }
+        }
     }
 
 
-    public void setAttackingState(int time)
+    public void performRangedAttack(LivingEntity livingEntity, float p_32142_)
     {
-        this.entityData.set(ATTACK, time);
+        RifleAmmo arrow = new RifleAmmo(this.level, this);
+        double d0 = livingEntity.getEyeY() - (double)2.5F;
+        double d1 = livingEntity.getX() - this.getX();
+        double d2 = d0 - arrow.getY();
+        double d3 = livingEntity.getZ() - this.getZ();
+        double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
+        arrow.shoot(d1, d2 + d4, d3, 2.5F, 0.1F);
+        this.playSound(SoundEventsROTM.AK47.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level.addFreshEntity(arrow);
     }
+
+    public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeaponItem) { return projectileWeaponItem == Items.BOW; }
+
+
 
     static class GunswineAttackGoal extends MeleeAttackGoal
     {
         private final Gunswine entity;
         private final double speedModifier;
-        private int statecheck;
-        private int ticksUntilNextAttack;
-        private int ticksUntilNextPathRecalculation;
-        private double pathedTargetX;
-        private double pathedTargetY;
-        private double pathedTargetZ;
+        private int statecheck, ticksUntilNextPathRecalculation, ticksUntilNextAttack;
+        private double pathedTargetX, pathedTargetY, pathedTargetZ;
 
         public GunswineAttackGoal(Gunswine zombieIn, double speedIn, boolean longMemoryIn, int state)
         {
@@ -142,22 +310,10 @@ public class Gunswine extends Monster implements GeoEntity
             this.speedModifier = speedIn;
         }
 
-        public void start()
-        {
-            super.start();
-        }
+        public void start() { super.start();}
+        public boolean canUse() { return super.canUse();}
 
-        public boolean canUse()
-        {
-            return super.canUse();
-        }
-
-        public void stop()
-        {
-            super.stop();
-            this.entity.setAggressive(false);
-            this.entity.setAttackingState(0);
-        }
+        public void stop() { super.stop(); this.entity.setAggressive(false); this.entity.setAttackingState(0); }
 
         public void tick()
         {
@@ -172,20 +328,14 @@ public class Gunswine extends Monster implements GeoEntity
                         && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D
                         || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY,
                         this.pathedTargetZ) >= 1.0D
-                        || this.mob.getRandom().nextFloat() < 0.05F)) {
+                        || this.mob.getRandom().nextFloat() < 0.05F))
+                {
                     this.pathedTargetX = livingentity.getX();
                     this.pathedTargetY = livingentity.getY();
                     this.pathedTargetZ = livingentity.getZ();
                     this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                    if (d0 > 1024.0D)
-                    {
-                        this.ticksUntilNextPathRecalculation += 10;
-                    }
-                    else if (d0 > 256.0D)
-                    {
-                        this.ticksUntilNextPathRecalculation += 5;
-                    }
-
+                    if (d0 > 1024.0D) { this.ticksUntilNextPathRecalculation += 10; }
+                    else if (d0 > 256.0D) { this.ticksUntilNextPathRecalculation += 5;}
                     if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier))
                     {
                         this.ticksUntilNextPathRecalculation += 15;
@@ -209,10 +359,7 @@ public class Gunswine extends Monster implements GeoEntity
         }
 
         @Override
-        protected int getAttackInterval()
-        {
-            return 50;
-        }
+        protected int getAttackInterval() { return 50;}
 
         @Override
         protected double getAttackReachSqr(LivingEntity attackTarget)
@@ -220,223 +367,6 @@ public class Gunswine extends Monster implements GeoEntity
             return this.mob.getBbWidth() * 1.0F * this.mob.getBbWidth() * 1.0F + attackTarget.getBbWidth();
         }
     }
-
-    public static class GunswineRangedAttackGoal extends Goal {
-        private final Gunswine mob;
-        private final Gunswine rangedAttackMob;
-        private int statecheck;
-        @Nullable
-        private LivingEntity target;
-        private int attackTime = -1;
-        private final double speedModifier;
-        private int seeTime;
-        private final double attackIntervalMin;
-        private final double attackIntervalMax;
-        private final float attackRadius;
-        private final float attackRadiusSqr;
-        private boolean strafingClockwise;
-        private boolean strafingBackwards;
-        private int strafingTime = -1;
-
-        public GunswineRangedAttackGoal(Gunswine gunswine, double speedIn, double dpsIn, float rangeIn, int state) {
-            this(gunswine, speedIn, dpsIn, dpsIn, rangeIn, state);
-        }
-
-        public GunswineRangedAttackGoal(Gunswine femaleHunter, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state) {
-            if (femaleHunter == null) {
-                throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
-            } else {
-                this.rangedAttackMob =  femaleHunter;
-                this.mob =  femaleHunter;
-                this.speedModifier = speedIn;
-                this.attackIntervalMin = atckIntervalMin;
-                this.attackIntervalMax = atckIntervalMax;
-                this.attackRadius = atckRadius;
-                this.attackRadiusSqr = atckRadius * atckRadius;
-                this.statecheck = state;
-
-                this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-            }
-        }
-
-
-        public boolean canUse() {
-            LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity != null && livingentity.isAlive()) {
-                this.target = livingentity;
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        public boolean canContinueToUse() {
-            return this.canUse() || !this.mob.getNavigation().isDone();
-        }
-
-        public void stop() {
-            this.target = null;
-            this.seeTime = 0;
-            this.attackTime = -1;
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
-        }
-
-        public void tick() {
-            LivingEntity livingentity = this.mob.getTarget();
-            double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-            boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
-            if (flag) {
-                ++this.seeTime;
-            } else {
-                this.seeTime = 0;
-            }
-
-            if (!(d0 > (double)this.attackRadiusSqr) && this.seeTime >= 5) {
-                this.mob.getNavigation().stop();
-            } else {
-                this.mob.getNavigation().moveTo(this.target, this.speedModifier);
-            }
-
-            if (livingentity != null) {
-                boolean flag1 = this.seeTime > 0;
-                if (flag != flag1) {
-                    this.seeTime = 0;
-                }
-
-                if (flag) {
-                    ++this.seeTime;
-                } else {
-                    --this.seeTime;
-                }
-                // strafing going backwards type stuff
-                if (!(d0 > (double)this.attackRadiusSqr) && this.seeTime >= 20) {
-                    this.mob.getNavigation().stop();
-                    ++this.strafingTime;
-                } else {
-                    this.mob.getNavigation().moveTo(livingentity, this.speedModifier);
-                    this.strafingTime = -1;
-                }
-
-                if (this.strafingTime >= 20) {
-                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
-                        this.strafingClockwise = !this.strafingClockwise;
-                    }
-
-                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
-                        this.strafingBackwards = !this.strafingBackwards;
-                    }
-
-                    this.strafingTime = 0;
-                }
-
-                if (this.strafingTime > -1) {
-                    if (d0 > (double)(this.attackRadiusSqr * 0.75F)) {
-                        this.strafingBackwards = false;
-                    } else if (d0 < (double)(this.attackRadiusSqr * 0.25F)) {
-                        this.strafingBackwards = true;
-                    }                                                           //speed shit
-                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.30F : 0.30F, this.strafingClockwise ? 0.30F : -0.30F);
-                    this.mob.lookAt(livingentity, 30.0F, 30.0F);
-                }
-                this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-                if (--this.attackTime == 0) {
-                    if (!flag) {
-                        return;
-                    }
-                    if (this.mob.isUsingItem()) {
-                        if (!flag && this.seeTime < -60) {
-                            this.mob.stopUsingItem();
-                        } else if (flag) {
-                            int i = this.mob.getTicksUsingItem();
-                            if (i >= 19) {
-                                this.mob.setAttackingState(statecheck);
-                            }
-                            if (i >= 20) {
-                                this.mob.stopUsingItem();
-                            }
-                        }
-                    }
-                    float f = (float)Math.sqrt(d0) / this.attackRadius;
-                    float f1 = Mth.clamp(f, 0.1F, 1.0F);
-                    this.rangedAttackMob.performRangedAttack(this.target, f1);
-                    this.attackTime = Mth.floor(f * (float)(this.attackIntervalMax - this.attackIntervalMin) + (float)this.attackIntervalMin);
-                } else if (this.attackTime < 0)
-                {
-                    this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0)
-                            / (double)this.attackRadius, (double)this.attackIntervalMin, (double)this.attackIntervalMax));
-                }
-
-            }
-        }
-    }
-
-
-    public void performRangedAttack(LivingEntity livingEntity, float p_32142_) {
-        RifleAmmo arrow = new RifleAmmo(this.level, this);
-        double d0 = livingEntity.getEyeY() - (double)2.5F;
-        double d1 = livingEntity.getX() - this.getX();
-        double d2 = d0 - arrow.getY();
-        double d3 = livingEntity.getZ() - this.getZ();
-        double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
-        arrow.shoot(d1, d2 + d4, d3, 2.5F, 0.1F);
-        this.playSound(SoundEventsROTM.AK47.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(arrow);
-    }
-
-    public boolean canFireProjectileWeapon(ProjectileWeaponItem p_32144_) {
-        return p_32144_ == Items.BOW;
-    }
-    /*************************************************************************/
-
-
-    /****************************** Sounds **********************************/
     @Override
-    protected SoundEvent getAmbientSound()
-    {
-        this.playSound(SoundEvents.PIG_AMBIENT, 1.0F, 0.2F);
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
-    {
-        this.playSound(SoundEvents.PIG_HURT, 1.0F, 0.2F);
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound()
-    {
-        this.playSound(SoundEventsROTM.GUNSWINE_DEATH.get(), 1.0F, 1.0F);
-        return null;
-    }
-    /*************************************************************************/
-
-
-    @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn)
-    {
-        return 1.65F;
-    }
-
-    @Override
-    protected void tickDeath()
-    {
-        ++this.deathTime;
-        if (this.deathTime == 60 && !this.level.isClientSide())
-        {
-            this.level.broadcastEntityEvent(this, (byte)60);
-            this.remove(RemovalReason.KILLED);
-        }
-
-    }
-
-    @Override
-    public boolean isBaby()
-    {
-        return false;
-    }
+    public boolean isBaby() { return false;}
 }

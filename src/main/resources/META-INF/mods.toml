@@ -5,7 +5,8 @@ license="All rights reserved"
 modId="rotm" #mandatory
 version="1.0-1.19.4" #mandatory
 displayName="Revolt of the Mobs" #mandatory
-logoFile="examplemod.png" #optional
+displayURL="https://www.curseforge.com/minecraft/mc-mods/revolt-of-the-mobs" #optional
+logoFile="rotmlogo.png" #optional
 authors="Feroov" #optional
 # (#mandatory)
 description='''
@@ -15,15 +16,9 @@ intelligent warriors armed with guns and ready to fight the player and other mob
 Players must constantly be on guard as they navigate through this new and dangerous world,
 utilizing their wits and skill to survive against the deadly foes.'''
 
-[[dependencies.rotm]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[45,)" #mandatory
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.rotm]]
-    modId="minecraft"
+[[dependencies.geckolib]]
+    modId="geckolib"
     mandatory=true
-    versionRange="[1.19.4,1.20)"
+    versionRange="[1.19.3,1.20)"
     ordering="NONE"
     side="BOTH"
