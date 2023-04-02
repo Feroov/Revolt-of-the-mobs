@@ -3,18 +3,17 @@ loaderVersion="[45,)" #mandatory
 license="All rights reserved"
 [[mods]] #mandatory
 modId="rotm" #mandatory
-version="${file.jarVersion}" #mandatory
+version="1.0-1.19.4" #mandatory
 displayName="Revolt of the Mobs" #mandatory
 logoFile="examplemod.png" #optional
 authors="Feroov" #optional
 # (#mandatory)
 description='''
-Revolt of the Mobs" is an exciting Minecraft mod that transforms once-passive animals into fierce,
-intelligent warriors armed with guns and ready to fight the player and other mobs. Players must constantly
- be on guard as they navigate through this new and dangerous world, utilizing their wits and skill to survive
-  against the deadly foes. With strategic abilities and a challenging gameplay experience, this mod adds a
-  thrilling twist to the traditional Minecraft adventure, creating an all-out warzone and an ultimate test
-  of survival.'''
+Revolt of the Mobs transforms once-passive animals into fierce,
+intelligent warriors armed with guns and ready to fight the player and other mobs.
+
+Players must constantly be on guard as they navigate through this new and dangerous world,
+utilizing their wits and skill to survive against the deadly foes.'''
 
 [[dependencies.rotm]] #optional
     modId="forge" #mandatory

@@ -1,36 +1,37 @@
-package com.feroov.frv;
+package com.feroov.rotm;
 
-import com.mojang.logging.LogUtils;
+import com.feroov.rotm.entity.EntitiesROTM;
+import com.feroov.rotm.item.ItemsROTM;
+import com.feroov.rotm.item.TabsROTM;
+import com.feroov.rotm.sound.SoundEventsROTM;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
+
 @Mod(ROTM.MOD_ID)
 public class ROTM
 {
-    // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "rotm";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+//    private static final Logger LOGGER = LogUtils.getLogger();
     public ROTM()
+
     {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(this::commonSetup);
+        SoundEventsROTM.register(eventBus);
+        ItemsROTM.register(eventBus);
+        EntitiesROTM.register(eventBus);
 
+        eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::addCreative);
         MinecraftForge.EVENT_BUS.register(this);
-
-
-        modEventBus.addListener(this::addCreative);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -40,14 +41,15 @@ public class ROTM
 
     private void addCreative(CreativeModeTabEvent.BuildContents event)
     {
+        if(event.getTab() == TabsROTM.ROTM_TAB)
+        {
+            event.accept(ItemsROTM.ADMIN_SWORD);
 
-    }
 
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+
+
+            event.accept(ItemsROTM.GUNSWINE_SPAWN_EGG);
+        }
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
