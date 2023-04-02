@@ -1,4 +1,4 @@
-package com.feroov.rotm.entity.item;
+package com.feroov.rotm.item;
 
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;

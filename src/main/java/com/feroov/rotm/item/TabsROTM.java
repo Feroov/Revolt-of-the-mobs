@@ -1,4 +1,4 @@
-package com.feroov.rotm.entity.item;
+package com.feroov.rotm.item;
 
 import com.feroov.rotm.ROTM;
 import net.minecraft.network.chat.Component;
