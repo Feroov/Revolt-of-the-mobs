@@ -5,6 +5,7 @@ import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.EntitiesROTM;
 import com.feroov.rotm.entity.hostile.renderer.GunswineRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.RifleAmmoRenderer;
+import com.feroov.rotm.entity.projectiles.renderer.RocketRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,6 +24,7 @@ public class ClientModEvents
 
         // Misc
         event.registerEntityRenderer(EntitiesROTM.RIFLE_AMMO.get(), RifleAmmoRenderer::new);
+        event.registerEntityRenderer(EntitiesROTM.ROCKET.get(), RocketRenderer::new);
 
     }
 }
