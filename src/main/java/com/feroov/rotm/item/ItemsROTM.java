@@ -34,7 +34,7 @@ public class ItemsROTM
     });
 
     public static final RegistryObject<Item> GUNSWINE_SPAWN_EGG = ITEMS.register("gunswine_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntitiesROTM.GUNSWINE, 0xF9A195, 0xFC1E00,
+            () -> new ForgeSpawnEggItem(EntitiesROTM.GUNSWINE, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
 

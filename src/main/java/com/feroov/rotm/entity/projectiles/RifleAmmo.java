@@ -1,7 +1,6 @@
 package com.feroov.rotm.entity.projectiles;
 
 import com.feroov.rotm.entity.EntitiesROTM;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -44,7 +43,7 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
     protected boolean inAir;
     private int ticksInAir;
 
-    private float projectiledamage = 1.5F;
+    private float projectiledamage = 2.2F;
 //    private int explosionPower = 5;
     public SoundEvent hitSound = this.getDefaultHitGroundSoundEvent();
 
@@ -62,7 +61,10 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
         this.projectiledamage = damage;
     }
 
-    public RifleAmmo(Level world, LivingEntity owner) { super(EntitiesROTM.RIFLE_AMMO.get(), owner, world); }
+    public RifleAmmo(Level world, LivingEntity owner)
+    {
+        super(EntitiesROTM.RIFLE_AMMO.get(), owner, world);
+    }
 
     protected RifleAmmo(EntityType<? extends RifleAmmo> type, double x, double y, double z, Level world)
     {
@@ -143,6 +145,7 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
 //        }
     }
     /***************************************************************************************************************************/
+
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers)

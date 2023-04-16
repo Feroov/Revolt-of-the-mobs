@@ -2,11 +2,9 @@ package com.feroov.rotm.entity.hostile;
 
 import com.feroov.rotm.entity.projectiles.RifleAmmo;
 import com.feroov.rotm.sound.SoundEventsROTM;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -18,13 +16,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -54,7 +49,6 @@ public class Gunswine extends Monster implements GeoEntity
                 .add(Attributes.MOVEMENT_SPEED, 0.4f).build();
     }
 
-
     @Override
     protected void registerGoals()
     {
@@ -67,7 +61,6 @@ public class Gunswine extends Monster implements GeoEntity
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Gunswine);
         }));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, FlyingMob.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
         this.goalSelector.addGoal(4, new GunswineRangedAttackGoal(this, 0.10D, 5.3D, 20.0F, 0));
@@ -286,7 +279,7 @@ public class Gunswine extends Monster implements GeoEntity
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
-        arrow.shoot(d1, d2 + d4, d3, 2.5F, 0.1F);
+        arrow.shoot(d1, d2 + d4, d3, 2.5F, 1.6F);
         this.playSound(SoundEventsROTM.AK47.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }

@@ -5,7 +5,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +17,7 @@ public class TabsROTM
     @SubscribeEvent
     public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
         ROTM_TAB = event.registerCreativeModeTab(new ResourceLocation(ROTM.MOD_ID, "rotm_tab"),
-                builder -> builder.icon(() -> new ItemStack(Items.NETHERITE_INGOT))
+                builder -> builder.icon(() -> new ItemStack(ItemsROTM.GUNSWINE_SPAWN_EGG.get()))
                         .title(Component.translatable("creativemodetab.rotm_tab")));
     }
 }

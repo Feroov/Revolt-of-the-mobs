@@ -1,7 +1,6 @@
 package com.feroov.rotm.entity.projectiles.renderer;
 
 import com.feroov.rotm.ROTM;
-import com.feroov.rotm.entity.hostile.Gunswine;
 import com.feroov.rotm.entity.projectiles.RifleAmmo;
 import com.feroov.rotm.entity.projectiles.client.RifleAmmoModel;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,8 +10,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-
-import javax.annotation.Nullable;
 
 
 public class RifleAmmoRenderer extends GeoEntityRenderer<RifleAmmo>
