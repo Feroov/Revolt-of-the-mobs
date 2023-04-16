@@ -5,5 +5,8 @@
   "item.rotm.admin_sword": "\u00A74\u00A7lBan Hammer",
 
   "item.rotm.gunswine_spawn_egg": "Gunswine Spawn",
-  "entity.rotm.gunswine": "Gunswine"
+  "entity.rotm.gunswine": "Gunswine",
+
+  "item.rotm.cowpg_spawn_egg": "COWPG Spawn",
+  "entity.rotm.cowpg": "COWPG"
 }

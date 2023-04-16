@@ -9,7 +9,7 @@ public class RifleAmmoModel extends GeoModel<RifleAmmo>
 {
     @Override
     public ResourceLocation getModelResource(RifleAmmo animatable) {
-        return new ResourceLocation(ROTM.MOD_ID, "geo/rifleammo.json");
+        return new ResourceLocation(ROTM.MOD_ID, "geo/projectile/rifleammo.json");
     }
 
     @Override
