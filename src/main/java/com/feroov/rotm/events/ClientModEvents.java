@@ -5,6 +5,7 @@ import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.EntitiesROTM;
 import com.feroov.rotm.entity.hostile.renderer.CowpgRenderer;
 import com.feroov.rotm.entity.hostile.renderer.GunswineRenderer;
+import com.feroov.rotm.entity.hostile.renderer.StabbitRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.RifleAmmoRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.RocketRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,6 +24,7 @@ public class ClientModEvents
         // Hostile
         event.registerEntityRenderer(EntitiesROTM.GUNSWINE.get(), GunswineRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.COWPG.get(), CowpgRenderer::new);
+        event.registerEntityRenderer(EntitiesROTM.STABBIT.get(), StabbitRenderer::new);
 
         // Misc
         event.registerEntityRenderer(EntitiesROTM.RIFLE_AMMO.get(), RifleAmmoRenderer::new);

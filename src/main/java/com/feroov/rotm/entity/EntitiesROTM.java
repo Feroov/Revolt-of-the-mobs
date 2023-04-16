@@ -3,6 +3,7 @@ package com.feroov.rotm.entity;
 import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.hostile.Cowpg;
 import com.feroov.rotm.entity.hostile.Gunswine;
+import com.feroov.rotm.entity.hostile.Stabbit;
 import com.feroov.rotm.entity.projectiles.RifleAmmo;
 import com.feroov.rotm.entity.projectiles.Rocket;
 import net.minecraft.resources.ResourceLocation;
@@ -30,6 +31,12 @@ public class EntitiesROTM
                     () -> EntityType.Builder.of(Cowpg::new, MobCategory.CREATURE)
                             .sized(0.9f, 2.2f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "cowpg").toString()));
+
+    public static final RegistryObject<EntityType<Stabbit>> STABBIT =
+            ENTITY_TYPES.register("stabbit",
+                    () -> EntityType.Builder.of(Stabbit::new, MobCategory.CREATURE)
+                            .sized(0.7f, 0.9f)
+                            .build(new ResourceLocation(ROTM.MOD_ID, "stabbit").toString()));
 
 
 
