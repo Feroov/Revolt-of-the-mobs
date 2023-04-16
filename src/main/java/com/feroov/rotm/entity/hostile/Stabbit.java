@@ -15,6 +15,7 @@ import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -48,9 +49,8 @@ public class Stabbit extends Monster implements GeoEntity
     {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.6F));
         this.goalSelector.addGoal(2, new OpenDoorGoal(this,true));
-        this.goalSelector.addGoal(3, new StabbitMeleeAttack(this, 0.73D, true));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.6D, false));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Stabbit);
@@ -91,9 +91,9 @@ public class Stabbit extends Monster implements GeoEntity
     protected void tickDeath()
     {
         ++this.deathTime;
-        if (this.deathTime == 32 && !this.level.isClientSide())
+        if (this.deathTime == 60 && !this.level.isClientSide())
         {
-            this.level.broadcastEntityEvent(this, (byte)32);
+            this.level.broadcastEntityEvent(this, (byte)60);
             this.remove(RemovalReason.KILLED);
         }
     }
@@ -144,56 +144,33 @@ public class Stabbit extends Monster implements GeoEntity
 
     public class StabbitMeleeAttack extends MeleeAttackGoal
     {
-        private Stabbit entity;
-        private int animCounter = 0;
-        private int animTickLength = 19;
+        private final Stabbit zombie;
+        private int raiseArmTicks;
 
-        public StabbitMeleeAttack(PathfinderMob mob, double speedModifier, boolean followingTargetEvenIfNotSeen)
-        {
-            super(mob, speedModifier, followingTargetEvenIfNotSeen);
-            if(mob instanceof Stabbit c)
-            {
-                entity = c;
-            }
+        public StabbitMeleeAttack(Stabbit stabbit, double speed, boolean p_26021_) {
+            super(stabbit, speed, p_26021_);
+            this.zombie = stabbit;
         }
 
-        @Override
-        protected void checkAndPerformAttack(LivingEntity p_25557_, double p_25558_)
-        {
-            if (p_25558_ <= this.getAttackReachSqr(p_25557_) && this.getTicksUntilNextAttack() <= 0)
-            {
-                if(entity != null)
-                {
-                    entity.setAttacking(true);
-                    animCounter = 0;
-                }
-            }
-
-            super.checkAndPerformAttack(p_25557_, p_25558_);
+        public void start() {
+            super.start();
+            this.raiseArmTicks = 0;
         }
 
-        @Override
-        public void tick()
-        {
-            super.tick();
-            if(entity.isAttacking())
-            {
-                animCounter++;
-
-                if(animCounter >= animTickLength)
-                {
-                    animCounter = 0;
-                    entity.setAttacking(false);
-                }
-            }
-        }
-
-        @Override
-        public void stop()
-        {
-            animCounter = 0;
-            entity.setAttacking(false);
+        public void stop() {
             super.stop();
+            this.zombie.setAggressive(false);
+        }
+
+        public void tick() {
+            super.tick();
+            ++this.raiseArmTicks;
+            if (this.raiseArmTicks >= 5 && this.getTicksUntilNextAttack() < this.getAttackInterval() / 2) {
+                this.zombie.setAggressive(true);
+            } else {
+                this.zombie.setAggressive(false);
+            }
+
         }
     }
     @Override

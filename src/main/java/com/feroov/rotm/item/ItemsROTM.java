@@ -39,6 +39,9 @@ public class ItemsROTM
     public static final RegistryObject<Item> COWPG_SPAWN_EGG = ITEMS.register("cowpg_spawn_egg",
             () -> new ForgeSpawnEggItem(EntitiesROTM.COWPG, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 
+    public static final RegistryObject<Item> STABBIT_SPAWN_EGG = ITEMS.register("stabbit_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntitiesROTM.STABBIT, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
+
 
     public static void register(IEventBus eventBus)
     {

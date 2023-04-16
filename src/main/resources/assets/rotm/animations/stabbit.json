@@ -414,7 +414,7 @@
 			}
 		},
 		"death": {
-			"animation_length": 1.41667,
+			"animation_length": 3,
 			"bones": {
 				"razorabbit": {
 					"rotation": {

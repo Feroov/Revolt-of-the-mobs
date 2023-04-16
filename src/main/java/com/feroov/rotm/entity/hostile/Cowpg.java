@@ -47,7 +47,7 @@ public class Cowpg extends Monster implements GeoEntity
                 .add(Attributes.MAX_HEALTH, 65.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
-                .add(Attributes.FOLLOW_RANGE, 70.0D)
+                .add(Attributes.FOLLOW_RANGE, 36.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4f).build();
     }
 
@@ -99,9 +99,9 @@ public class Cowpg extends Monster implements GeoEntity
     protected void tickDeath()
     {
         ++this.deathTime;
-        if (this.deathTime == 45 && !this.level.isClientSide())
+        if (this.deathTime == 60 && !this.level.isClientSide())
         {
-            this.level.broadcastEntityEvent(this, (byte)45);
+            this.level.broadcastEntityEvent(this, (byte)60);
             this.remove(RemovalReason.KILLED);
         }
     }
