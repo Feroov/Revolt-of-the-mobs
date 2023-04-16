@@ -1,4 +1,5 @@
 {
   "gunswine_death": {"category": "hostile", "sounds": [{"name": "rotm:gunswine_death"}], "subtitle": "rotm.gunswine_death"},
-  "ak47": {"category": "hostile", "sounds": [{"name": "rotm:ak47"}], "subtitle": "rotm.ak47"}
+  "ak47": {"category": "hostile", "sounds": [{"name": "rotm:ak47"}], "subtitle": "rotm.ak47"},
+  "rocket": {"category": "hostile", "sounds": [{"name": "rotm:rocket"}], "subtitle": "rotm.rocket"}
 }

@@ -2,6 +2,7 @@ package com.feroov.rotm.events;
 
 import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.EntitiesROTM;
+import com.feroov.rotm.entity.hostile.Cowpg;
 import com.feroov.rotm.entity.hostile.Gunswine;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,5 +15,6 @@ public class EventsROTM
     public static void registerAttributes(EntityAttributeCreationEvent event)
     {
         event.put(EntitiesROTM.GUNSWINE.get(), Gunswine.setAttributes());
+        event.put(EntitiesROTM.COWPG.get(), Cowpg.setAttributes());
     }
 }

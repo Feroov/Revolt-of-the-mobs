@@ -34,8 +34,10 @@ public class ItemsROTM
     });
 
     public static final RegistryObject<Item> GUNSWINE_SPAWN_EGG = ITEMS.register("gunswine_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntitiesROTM.GUNSWINE, 0xFFFFFF, 0xFFFFFF,
-                    new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntitiesROTM.GUNSWINE, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
+
+    public static final RegistryObject<Item> COWPG_SPAWN_EGG = ITEMS.register("cowpg_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntitiesROTM.COWPG, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 
 
     public static void register(IEventBus eventBus)

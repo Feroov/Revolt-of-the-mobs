@@ -44,7 +44,7 @@ public class Rocket extends AbstractArrow implements GeoEntity
     private int ticksInAir;
 
     private float projectiledamage = 2.2F;
-    private int explosionPower = 5;
+    private int explosionPower = 2;
     public SoundEvent hitSound = this.getDefaultHitGroundSoundEvent();
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -57,13 +57,13 @@ public class Rocket extends AbstractArrow implements GeoEntity
 
     public Rocket(Level world, LivingEntity owner, float damage)
     {
-        super(EntitiesROTM.RIFLE_AMMO.get(), owner, world);
+        super(EntitiesROTM.ROCKET.get(), owner, world);
         this.projectiledamage = damage;
     }
 
     public Rocket(Level world, LivingEntity owner)
     {
-        super(EntitiesROTM.RIFLE_AMMO.get(), owner, world);
+        super(EntitiesROTM.ROCKET.get(), owner, world);
     }
 
     protected Rocket(EntityType<? extends Rocket> type, double x, double y, double z, Level world)
@@ -142,7 +142,7 @@ public class Rocket extends AbstractArrow implements GeoEntity
             double x = this.getX() + (this.random.nextDouble()) * (double) this.getBbWidth() * 1.5D;
             double z = this.getZ() + (this.random.nextDouble()) * (double) this.getBbWidth() * 0.5D;
             this.level.addParticle(ParticleTypes.SMOKE, true, x, this.getY(), z, 0, 0, 0);
-            this.level.addParticle(ParticleTypes.EXPLOSION, true, x, this.getY(), z, 0, 0, 0);
+            this.level.addParticle(ParticleTypes.LAVA, true, x, this.getY(), z, 0, 0, 0);
             this.level.addParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, true, x, this.getY(), z, 0, 0, 0);
         }
     }

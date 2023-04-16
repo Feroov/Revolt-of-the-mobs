@@ -1,6 +1,6 @@
 package com.feroov.rotm.entity.hostile;
 
-import com.feroov.rotm.entity.projectiles.RifleAmmo;
+import com.feroov.rotm.entity.projectiles.Rocket;
 import com.feroov.rotm.sound.SoundEventsROTM;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -14,8 +14,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.animal.AbstractGolem;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -24,28 +26,28 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class Gunswine extends Monster implements GeoEntity
+public class Cowpg extends Monster implements GeoEntity
 {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-    public static final EntityDataAccessor<Integer> ATTACK = SynchedEntityData.defineId(Gunswine.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> ATTACK = SynchedEntityData.defineId(Cowpg.class, EntityDataSerializers.INT);
 
-    public Gunswine(EntityType<? extends Monster> entityType, Level level) { super(entityType, level); }
+    public Cowpg(EntityType<? extends Monster> entityType, Level level) { super(entityType, level); }
 
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 33.0D)
+                .add(Attributes.MAX_HEALTH, 65.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
-                .add(Attributes.FOLLOW_RANGE, 20.0D)
+                .add(Attributes.FOLLOW_RANGE, 70.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4f).build();
     }
 
@@ -55,15 +57,15 @@ public class Gunswine extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new GunswineAttackGoal(this, 0.0D, true, 3));
+        this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.1D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
-            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Gunswine);
+            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg);
         }));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new GunswineRangedAttackGoal(this, 0.10D, 5.3D, 20.0F, 0));
+        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.1D, 50.0D, 73.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -72,34 +74,34 @@ public class Gunswine extends Monster implements GeoEntity
     @Override
     protected SoundEvent getAmbientSound()
     {
-        this.playSound(SoundEvents.PIG_AMBIENT, 1.0F, 0.2F);
+        this.playSound(SoundEvents.COW_AMBIENT, 1.0F, 0.2F);
         return null;
     }
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
     {
-        this.playSound(SoundEvents.PIG_HURT, 1.0F, 0.2F);
+        this.playSound(SoundEvents.COW_HURT, 1.0F, 0.2F);
         return null;
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        this.playSound(SoundEventsROTM.GUNSWINE_DEATH.get(), 1.0F, 1.0F);
+        this.playSound(SoundEvents.COW_DEATH, 1.0F, 0.2F);
         return null;
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 1.65F; }
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 1.95F; }
 
     @Override
     protected void tickDeath()
     {
         ++this.deathTime;
-        if (this.deathTime == 60 && !this.level.isClientSide())
+        if (this.deathTime == 45 && !this.level.isClientSide())
         {
-            this.level.broadcastEntityEvent(this, (byte)60);
+            this.level.broadcastEntityEvent(this, (byte)45);
             this.remove(RemovalReason.KILLED);
         }
     }
@@ -147,10 +149,10 @@ public class Gunswine extends Monster implements GeoEntity
 
     public void setAttackingState(int time) { this.entityData.set(ATTACK, time); }
 
-    public static class GunswineRangedAttackGoal extends Goal
+    public static class CowpgRangedAttackGoal extends Goal
     {
-        private final Gunswine mob;
-        private final Gunswine rangedAttackMob;
+        private final Cowpg mob;
+        private final Cowpg rangedAttackMob;
         @Nullable
         private LivingEntity target;
         private int attackTime = -1;
@@ -160,21 +162,21 @@ public class Gunswine extends Monster implements GeoEntity
         private boolean strafingClockwise, strafingBackwards;
         private int strafingTime = -1;
 
-        public GunswineRangedAttackGoal(Gunswine gunswine, double speedIn, double dpsIn, float rangeIn, int state)
+        public CowpgRangedAttackGoal(Cowpg cowpg, double speedIn, double dpsIn, float rangeIn, int state)
         {
-            this(gunswine, speedIn, dpsIn, dpsIn, rangeIn, state);
+            this(cowpg, speedIn, dpsIn, dpsIn, rangeIn, state);
         }
 
-        public GunswineRangedAttackGoal(Gunswine gunswine, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
+        public CowpgRangedAttackGoal(Cowpg cowpg, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
         {
-            if (gunswine == null)
+            if (cowpg == null)
             {
                 throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
             }
             else
             {
-                this.rangedAttackMob =  gunswine;
-                this.mob =  gunswine;
+                this.rangedAttackMob =  cowpg;
+                this.mob =  cowpg;
                 this.speedModifier = speedIn;
                 this.attackIntervalMin = atckIntervalMin;
                 this.attackIntervalMax = atckIntervalMax;
@@ -244,7 +246,7 @@ public class Gunswine extends Monster implements GeoEntity
                     if (d0 > (double)(this.attackRadiusSqr * 0.75F)) { this.strafingBackwards = false; }
                     else if (d0 < (double)(this.attackRadiusSqr * 0.25F)) { this.strafingBackwards = true; }
                     //speed shit
-                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.30F : 0.30F, this.strafingClockwise ? 0.30F : -0.30F);
+                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.0F : 0.0F, this.strafingClockwise ? 0.0F : -0.0F);
                     this.mob.lookAt(livingentity, 30.0F, 30.0F);
                 }
                 this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
@@ -273,14 +275,14 @@ public class Gunswine extends Monster implements GeoEntity
 
     public void performRangedAttack(LivingEntity livingEntity, float p_32142_)
     {
-        RifleAmmo arrow = new RifleAmmo(this.level, this);
+        Rocket arrow = new Rocket(this.level, this);
         double d0 = livingEntity.getEyeY() - (double)2.5F;
         double d1 = livingEntity.getX() - this.getX();
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
-        arrow.shoot(d1, d2 + d4, d3, 2.5F, 1.6F);
-        this.playSound(SoundEventsROTM.AK47.get(), 2.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        arrow.shoot(d1, d2 + d4, d3, 2.0F, 1.6F);
+        this.playSound(SoundEventsROTM.ROCKET.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
 
@@ -288,14 +290,14 @@ public class Gunswine extends Monster implements GeoEntity
 
 
 
-    static class GunswineAttackGoal extends MeleeAttackGoal
+    static class CowpgAttackGoal extends MeleeAttackGoal
     {
-        private final Gunswine entity;
+        private final Cowpg entity;
         private final double speedModifier;
         private int statecheck, ticksUntilNextPathRecalculation, ticksUntilNextAttack;
         private double pathedTargetX, pathedTargetY, pathedTargetZ;
 
-        public GunswineAttackGoal(Gunswine zombieIn, double speedIn, boolean longMemoryIn, int state)
+        public CowpgAttackGoal(Cowpg zombieIn, double speedIn, boolean longMemoryIn, int state)
         {
             super(zombieIn, speedIn, longMemoryIn);
             this.entity = zombieIn;

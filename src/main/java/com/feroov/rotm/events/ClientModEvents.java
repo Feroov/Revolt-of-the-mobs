@@ -3,6 +3,7 @@ package com.feroov.rotm.events;
 
 import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.EntitiesROTM;
+import com.feroov.rotm.entity.hostile.renderer.CowpgRenderer;
 import com.feroov.rotm.entity.hostile.renderer.GunswineRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.RifleAmmoRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.RocketRenderer;
@@ -21,6 +22,7 @@ public class ClientModEvents
     {
         // Hostile
         event.registerEntityRenderer(EntitiesROTM.GUNSWINE.get(), GunswineRenderer::new);
+        event.registerEntityRenderer(EntitiesROTM.COWPG.get(), CowpgRenderer::new);
 
         // Misc
         event.registerEntityRenderer(EntitiesROTM.RIFLE_AMMO.get(), RifleAmmoRenderer::new);

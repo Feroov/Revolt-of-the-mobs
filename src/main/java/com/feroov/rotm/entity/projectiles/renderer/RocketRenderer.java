@@ -22,7 +22,7 @@ public class RocketRenderer extends GeoEntityRenderer<Rocket>
     @Override
     public ResourceLocation getTextureLocation(Rocket animatable)
     {
-        return new ResourceLocation(ROTM.MOD_ID, "textures/entity/projectile/rifleammo.png");
+        return new ResourceLocation(ROTM.MOD_ID, "textures/entity/projectile/rocket.png");
     }
 
     @Override
