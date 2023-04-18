@@ -5,6 +5,7 @@ import com.feroov.rotm.entity.hostile.Cowpg;
 import com.feroov.rotm.entity.hostile.Gunswine;
 import com.feroov.rotm.entity.hostile.Horsiper;
 import com.feroov.rotm.entity.hostile.Stabbit;
+import com.feroov.rotm.entity.projectiles.FiftyCal;
 import com.feroov.rotm.entity.projectiles.RifleAmmo;
 import com.feroov.rotm.entity.projectiles.Rocket;
 import net.minecraft.resources.ResourceLocation;
@@ -51,6 +52,10 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<RifleAmmo>> RIFLE_AMMO = ENTITY_TYPES.register("rifle_ammo",
             () -> EntityType.Builder.<RifleAmmo>of(RifleAmmo::new, MobCategory.MISC).sized(0.2F, 0.2F)
                     .clientTrackingRange(9).build(new ResourceLocation(ROTM.MOD_ID, "rifle_ammo").toString()));
+
+    public static final RegistryObject<EntityType<FiftyCal>> FIFTY_CAL = ENTITY_TYPES.register("fifty_cal",
+            () -> EntityType.Builder.<FiftyCal>of(FiftyCal::new, MobCategory.MISC).sized(0.2F, 0.2F)
+                    .clientTrackingRange(9).build(new ResourceLocation(ROTM.MOD_ID, "fifty_cal").toString()));
 
     public static final RegistryObject<EntityType<Rocket>> ROCKET = ENTITY_TYPES.register("rocket",
             () -> EntityType.Builder.<Rocket>of(Rocket::new, MobCategory.MISC).sized(0.7F, 0.7F)
