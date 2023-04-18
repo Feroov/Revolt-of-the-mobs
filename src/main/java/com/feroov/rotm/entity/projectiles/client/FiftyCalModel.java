@@ -8,17 +8,20 @@ import software.bernie.geckolib.model.GeoModel;
 public class FiftyCalModel extends GeoModel<FiftyCal>
 {
     @Override
-    public ResourceLocation getModelResource(FiftyCal animatable) {
+    public ResourceLocation getModelResource(FiftyCal animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "geo/projectile/50cal.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(FiftyCal animatable) {
+    public ResourceLocation getTextureResource(FiftyCal animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "textures/entity/projectile/50cal.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(FiftyCal animatable) {
+    public ResourceLocation getAnimationResource(FiftyCal animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "animations/empty.animation.json");
     }
 }

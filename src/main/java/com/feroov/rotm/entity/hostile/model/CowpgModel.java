@@ -13,22 +13,26 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class CowpgModel extends GeoModel<Cowpg>
 {
     @Override
-    public ResourceLocation getModelResource(Cowpg animatable) {
+    public ResourceLocation getModelResource(Cowpg animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "geo/cowpg.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(Cowpg animatable) {
+    public ResourceLocation getTextureResource(Cowpg animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "textures/entity/cowpg.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Cowpg animatable) {
+    public ResourceLocation getAnimationResource(Cowpg animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "animations/cowpg.json");
     }
 
     @Override
-    public void setCustomAnimations(Cowpg animatable, long instanceId, AnimationState<Cowpg> animationState) {
+    public void setCustomAnimations(Cowpg animatable, long instanceId, AnimationState<Cowpg> animationState)
+    {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null) {

@@ -13,22 +13,26 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class StabbitModel extends GeoModel<Stabbit>
 {
     @Override
-    public ResourceLocation getModelResource(Stabbit animatable) {
+    public ResourceLocation getModelResource(Stabbit animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "geo/stabbit.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(Stabbit animatable) {
+    public ResourceLocation getTextureResource(Stabbit animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "textures/entity/stabbit.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Stabbit animatable) {
+    public ResourceLocation getAnimationResource(Stabbit animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "animations/stabbit.json");
     }
 
     @Override
-    public void setCustomAnimations(Stabbit animatable, long instanceId, AnimationState<Stabbit> animationState) {
+    public void setCustomAnimations(Stabbit animatable, long instanceId, AnimationState<Stabbit> animationState)
+    {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null) {

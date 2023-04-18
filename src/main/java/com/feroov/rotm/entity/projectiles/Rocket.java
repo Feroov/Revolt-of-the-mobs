@@ -71,13 +71,6 @@ public class Rocket extends AbstractArrow implements GeoEntity
         this(type, world);
     }
 
-    protected Rocket(EntityType<? extends Rocket> type, LivingEntity owner, Level world)
-    {
-        this(type, owner.getX(), owner.getEyeY() - 0.10000000149011612D, owner.getZ(), world);
-        this.setOwner(owner);
-        if (owner instanceof Player) { this.pickup = Pickup.DISALLOWED; }
-    }
-
     /******************************************** Methods of Interest ************************************************************/
     @Override
     protected void onHitEntity(EntityHitResult entityHitResult)

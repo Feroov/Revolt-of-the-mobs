@@ -44,7 +44,6 @@ public class FiftyCal extends AbstractArrow implements GeoEntity
     private int ticksInAir;
 
     private float projectiledamage = 12.2F;
-//    private int explosionPower = 5;
     public SoundEvent hitSound = this.getDefaultHitGroundSoundEvent();
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -69,13 +68,6 @@ public class FiftyCal extends AbstractArrow implements GeoEntity
     protected FiftyCal(EntityType<? extends FiftyCal> type, double x, double y, double z, Level world)
     {
         this(type, world);
-    }
-
-    protected FiftyCal(EntityType<? extends FiftyCal> type, LivingEntity owner, Level world)
-    {
-        this(type, owner.getX(), owner.getEyeY() - 0.10000000149011612D, owner.getZ(), world);
-        this.setOwner(owner);
-        if (owner instanceof Player) { this.pickup = Pickup.DISALLOWED; }
     }
 
     /******************************************** Methods of Interest ************************************************************/
@@ -161,9 +153,6 @@ public class FiftyCal extends AbstractArrow implements GeoEntity
 
     @Override
     protected void defineSynchedData() { super.defineSynchedData(); this.entityData.define(PARTICLE, 0); }
-
-    public Integer useParticle() { return this.entityData.get(PARTICLE); }
-    public void setParticle(Integer spin) { this.entityData.set(PARTICLE, spin); }
 
 
     @Override

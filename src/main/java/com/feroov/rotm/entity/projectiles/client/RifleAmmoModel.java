@@ -8,17 +8,20 @@ import software.bernie.geckolib.model.GeoModel;
 public class RifleAmmoModel extends GeoModel<RifleAmmo>
 {
     @Override
-    public ResourceLocation getModelResource(RifleAmmo animatable) {
+    public ResourceLocation getModelResource(RifleAmmo animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "geo/projectile/rifleammo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(RifleAmmo animatable) {
+    public ResourceLocation getTextureResource(RifleAmmo animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "textures/entity/projectile/rifleammo.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(RifleAmmo animatable) {
+    public ResourceLocation getAnimationResource(RifleAmmo animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "animations/empty.animation.json");
     }
 }

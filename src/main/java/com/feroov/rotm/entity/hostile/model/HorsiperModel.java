@@ -13,22 +13,26 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class HorsiperModel extends GeoModel<Horsiper>
 {
     @Override
-    public ResourceLocation getModelResource(Horsiper animatable) {
+    public ResourceLocation getModelResource(Horsiper animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "geo/horsiper.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(Horsiper animatable) {
+    public ResourceLocation getTextureResource(Horsiper animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "textures/entity/horsiper.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Horsiper animatable) {
+    public ResourceLocation getAnimationResource(Horsiper animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "animations/horsiper.json");
     }
 
     @Override
-    public void setCustomAnimations(Horsiper animatable, long instanceId, AnimationState<Horsiper> animationState) {
+    public void setCustomAnimations(Horsiper animatable, long instanceId, AnimationState<Horsiper> animationState)
+    {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null) {

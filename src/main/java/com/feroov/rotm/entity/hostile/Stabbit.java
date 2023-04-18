@@ -15,7 +15,6 @@ import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;

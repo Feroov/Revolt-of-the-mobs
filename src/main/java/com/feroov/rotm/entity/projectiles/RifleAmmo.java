@@ -44,7 +44,6 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
     private int ticksInAir;
 
     private float projectiledamage = 2.2F;
-//    private int explosionPower = 5;
     public SoundEvent hitSound = this.getDefaultHitGroundSoundEvent();
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -71,12 +70,6 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
         this(type, world);
     }
 
-    protected RifleAmmo(EntityType<? extends RifleAmmo> type, LivingEntity owner, Level world)
-    {
-        this(type, owner.getX(), owner.getEyeY() - 0.10000000149011612D, owner.getZ(), world);
-        this.setOwner(owner);
-        if (owner instanceof Player) { this.pickup = AbstractArrow.Pickup.DISALLOWED; }
-    }
 
     /******************************************** Methods of Interest ************************************************************/
     @Override
@@ -136,13 +129,6 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
         super.tick();
         ++this.ticksInAir;
         if (this.ticksInAir >= 80) { this.remove(Entity.RemovalReason.DISCARDED); }
-
-//        if (this.level.isClientSide())
-//        {
-//            double x = this.getX() + (this.random.nextDouble()) * (double) this.getBbWidth() * 1.5D;
-//            double z = this.getZ() + (this.random.nextDouble()) * (double) this.getBbWidth() * 0.5D;
-//            this.level.addParticle(ParticleTypes.SMOKE, true, x, this.getY(), z, 0, 0, 0);
-//        }
     }
     /***************************************************************************************************************************/
 
@@ -161,10 +147,6 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
 
     @Override
     protected void defineSynchedData() { super.defineSynchedData(); this.entityData.define(PARTICLE, 0); }
-
-    public Integer useParticle() { return this.entityData.get(PARTICLE); }
-    public void setParticle(Integer spin) { this.entityData.set(PARTICLE, spin); }
-
 
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() { return NetworkHooks.getEntitySpawningPacket(this);}
@@ -205,23 +187,4 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
 
     @Override
     public boolean displayFireAnimation() { return false; }
-
-
-//    @Override
-//    protected void onHit(HitResult p_37218_) {
-//        super.onHit(p_37218_);
-//        if (!this.level.isClientSide) {
-//            boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
-//            this.level.explode(this, this.getX(), this.getY(), this.getZ(),
-//                    (float)this.explosionPower, flag, Level.ExplosionInteraction.MOB);
-//            this.discard();
-//        }
-//    }
-
-    //    @Override
-//    public boolean isNoGravity() {
-//        if (this.isInWater())
-//            return false;
-//        return true;
-//    }
 }

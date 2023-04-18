@@ -13,22 +13,26 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class GunswineModel extends GeoModel<Gunswine>
 {
     @Override
-    public ResourceLocation getModelResource(Gunswine animatable) {
+    public ResourceLocation getModelResource(Gunswine animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "geo/gunswine.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(Gunswine animatable) {
+    public ResourceLocation getTextureResource(Gunswine animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "textures/entity/gunswine.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Gunswine animatable) {
+    public ResourceLocation getAnimationResource(Gunswine animatable)
+    {
         return new ResourceLocation(ROTM.MOD_ID, "animations/gunswine.json");
     }
 
     @Override
-    public void setCustomAnimations(Gunswine animatable, long instanceId, AnimationState<Gunswine> animationState) {
+    public void setCustomAnimations(Gunswine animatable, long instanceId, AnimationState<Gunswine> animationState)
+    {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         if (head != null) {

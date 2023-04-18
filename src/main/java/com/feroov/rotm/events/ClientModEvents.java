@@ -33,6 +33,5 @@ public class ClientModEvents
         event.registerEntityRenderer(EntitiesROTM.RIFLE_AMMO.get(), RifleAmmoRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.ROCKET.get(), RocketRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.FIFTY_CAL.get(), FiftyCalRenderer::new);
-
     }
 }
