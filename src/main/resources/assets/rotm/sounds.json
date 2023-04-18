@@ -1,5 +1,6 @@
 {
   "gunswine_death": {"category": "hostile", "sounds": [{"name": "rotm:gunswine_death"}], "subtitle": "rotm.gunswine_death"},
   "ak47": {"category": "hostile", "sounds": [{"name": "rotm:ak47"}], "subtitle": "rotm.ak47"},
-  "rocket": {"category": "hostile", "sounds": [{"name": "rotm:rocket"}], "subtitle": "rotm.rocket"}
+  "rocket": {"category": "hostile", "sounds": [{"name": "rotm:rocket"}], "subtitle": "rotm.rocket"},
+  "rocket": {"category": "50cal", "sounds": [{"name": "rotm:50cal"}], "subtitle": "rotm.50cal"}
 }

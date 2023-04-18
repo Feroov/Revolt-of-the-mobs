@@ -18,6 +18,7 @@ public class SoundEventsROTM
 
     public static final RegistryObject<SoundEvent> AK47 = SOUND_EVENTS.register("ak47", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "ak47")));
     public static final RegistryObject<SoundEvent> ROCKET = SOUND_EVENTS.register("rocket", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "rocket")));
+    public static final RegistryObject<SoundEvent> FIFTY_CAL = SOUND_EVENTS.register("50cal", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "50cal")));
 
 
     public static void register(IEventBus eventBus) { SOUND_EVENTS.register(eventBus); }

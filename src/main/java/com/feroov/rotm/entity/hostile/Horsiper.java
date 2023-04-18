@@ -282,7 +282,7 @@ public class Horsiper extends Monster implements GeoEntity
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
         arrow.shoot(d1, d2 + d4, d3, 2.0F, 1.6F);
-        this.playSound(SoundEventsROTM.AK47.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.playSound(SoundEventsROTM.FIFTY_CAL.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
 
