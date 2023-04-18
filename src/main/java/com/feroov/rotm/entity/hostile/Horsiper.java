@@ -44,10 +44,10 @@ public class Horsiper extends Monster implements GeoEntity
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 65.0D)
+                .add(Attributes.MAX_HEALTH, 100.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
-                .add(Attributes.FOLLOW_RANGE, 36.0D)
+                .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4f).build();
     }
 
@@ -57,7 +57,7 @@ public class Horsiper extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new HorsiperAttackGoal(this, 0.1D, true, 3));
+        this.targetSelector.addGoal(2, new HorsiperAttackGoal(this, 0.3D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Horsiper);
@@ -65,7 +65,7 @@ public class Horsiper extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.1D, 50.0D, 73.0F, 0));
+        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.1D, 40.0D, 35.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -246,7 +246,7 @@ public class Horsiper extends Monster implements GeoEntity
                     if (d0 > (double)(this.attackRadiusSqr * 0.75F)) { this.strafingBackwards = false; }
                     else if (d0 < (double)(this.attackRadiusSqr * 0.25F)) { this.strafingBackwards = true; }
                     //speed shit
-                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.0F : 0.0F, this.strafingClockwise ? 0.0F : -0.0F);
+                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.0F : 0.0F, this.strafingClockwise ? 0.3F : -0.3F);
                     this.mob.lookAt(livingentity, 30.0F, 30.0F);
                 }
                 this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
@@ -276,13 +276,13 @@ public class Horsiper extends Monster implements GeoEntity
     public void performRangedAttack(LivingEntity livingEntity, float p_32142_)
     {
         FiftyCal arrow = new FiftyCal(this.level, this);
-        double d0 = livingEntity.getEyeY() - (double)2.5F;
+        double d0 = livingEntity.getEyeY() - (double)5.0F;
         double d1 = livingEntity.getX() - this.getX();
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
-        arrow.shoot(d1, d2 + d4, d3, 2.0F, 1.6F);
-        this.playSound(SoundEventsROTM.FIFTY_CAL.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        arrow.shoot(d1, d2 + d4, d3, 4.0F, 0.1F);
+        this.playSound(SoundEventsROTM.FIFTY_CAL.get(), 6.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
 
