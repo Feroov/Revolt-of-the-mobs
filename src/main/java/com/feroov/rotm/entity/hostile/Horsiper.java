@@ -1,6 +1,6 @@
 package com.feroov.rotm.entity.hostile;
 
-import com.feroov.rotm.entity.projectiles.Rocket;
+import com.feroov.rotm.entity.projectiles.FiftyCal;
 import com.feroov.rotm.sound.SoundEventsROTM;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -57,7 +57,7 @@ public class Horsiper extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.1D, true, 3));
+        this.targetSelector.addGoal(2, new HorsiperAttackGoal(this, 0.1D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Horsiper);
@@ -74,21 +74,21 @@ public class Horsiper extends Monster implements GeoEntity
     @Override
     protected SoundEvent getAmbientSound()
     {
-        this.playSound(SoundEvents.COW_AMBIENT, 1.0F, 0.2F);
+        this.playSound(SoundEvents.HORSE_AMBIENT, 1.0F, 0.2F);
         return null;
     }
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
     {
-        this.playSound(SoundEvents.COW_HURT, 1.0F, 0.2F);
+        this.playSound(SoundEvents.HORSE_HURT, 1.0F, 0.2F);
         return null;
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        this.playSound(SoundEvents.COW_DEATH, 1.0F, 0.2F);
+        this.playSound(SoundEvents.HORSE_DEATH, 1.0F, 0.2F);
         return null;
     }
 
@@ -275,14 +275,14 @@ public class Horsiper extends Monster implements GeoEntity
 
     public void performRangedAttack(LivingEntity livingEntity, float p_32142_)
     {
-        Rocket arrow = new Rocket(this.level, this);
+        FiftyCal arrow = new FiftyCal(this.level, this);
         double d0 = livingEntity.getEyeY() - (double)2.5F;
         double d1 = livingEntity.getX() - this.getX();
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
         arrow.shoot(d1, d2 + d4, d3, 2.0F, 1.6F);
-        this.playSound(SoundEventsROTM.ROCKET.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.playSound(SoundEventsROTM.AK47.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
 
@@ -290,17 +290,17 @@ public class Horsiper extends Monster implements GeoEntity
 
 
 
-    static class CowpgAttackGoal extends MeleeAttackGoal
+    static class HorsiperAttackGoal extends MeleeAttackGoal
     {
         private final Horsiper entity;
         private final double speedModifier;
         private int statecheck, ticksUntilNextPathRecalculation, ticksUntilNextAttack;
         private double pathedTargetX, pathedTargetY, pathedTargetZ;
 
-        public CowpgAttackGoal(Horsiper zombieIn, double speedIn, boolean longMemoryIn, int state)
+        public HorsiperAttackGoal(Horsiper horsiper, double speedIn, boolean longMemoryIn, int state)
         {
-            super(zombieIn, speedIn, longMemoryIn);
-            this.entity = zombieIn;
+            super(horsiper, speedIn, longMemoryIn);
+            this.entity = horsiper;
             this.statecheck = state;
             this.speedModifier = speedIn;
         }
