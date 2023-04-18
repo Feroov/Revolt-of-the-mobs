@@ -3,6 +3,7 @@ package com.feroov.rotm.entity;
 import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.hostile.Cowpg;
 import com.feroov.rotm.entity.hostile.Gunswine;
+import com.feroov.rotm.entity.hostile.Horsiper;
 import com.feroov.rotm.entity.hostile.Stabbit;
 import com.feroov.rotm.entity.projectiles.RifleAmmo;
 import com.feroov.rotm.entity.projectiles.Rocket;
@@ -37,6 +38,12 @@ public class EntitiesROTM
                     () -> EntityType.Builder.of(Stabbit::new, MobCategory.CREATURE)
                             .sized(0.7f, 0.9f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "stabbit").toString()));
+
+    public static final RegistryObject<EntityType<Horsiper>> HORSIPER =
+            ENTITY_TYPES.register("horsiper",
+                    () -> EntityType.Builder.of(Horsiper::new, MobCategory.CREATURE)
+                            .sized(0.9f, 2.2f)
+                            .build(new ResourceLocation(ROTM.MOD_ID, "horsiper").toString()));
 
 
 
