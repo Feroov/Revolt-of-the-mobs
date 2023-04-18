@@ -475,6 +475,25 @@
 					]
 				},
 				{
+					"name": "muzzle",
+					"parent": "sniper",
+					"pivot": [21.68127, 10.50682, -5.9755],
+					"cubes": [
+						{
+							"origin": [21.68127, 0.50682, -13.2755],
+							"size": [0, 20, 20],
+							"uv": {
+								"north": {"uv": [44, 0], "uv_size": [20, 18]},
+								"east": {"uv": [44, 0], "uv_size": [20, 18]},
+								"south": {"uv": [44, 0], "uv_size": [20, 18]},
+								"west": {"uv": [44, 0], "uv_size": [20, 18]},
+								"up": {"uv": [64, 18], "uv_size": [-20, -18]},
+								"down": {"uv": [64, 18], "uv_size": [-20, -18]}
+							}
+						}
+					]
+				},
+				{
 					"name": "leftarm",
 					"parent": "horsiper",
 					"pivot": [5, 27, 0],
