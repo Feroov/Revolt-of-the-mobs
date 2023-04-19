@@ -2,10 +2,7 @@ package com.feroov.rotm.events;
 
 import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.EntitiesROTM;
-import com.feroov.rotm.entity.hostile.Cowpg;
-import com.feroov.rotm.entity.hostile.Gunswine;
-import com.feroov.rotm.entity.hostile.Horsiper;
-import com.feroov.rotm.entity.hostile.Stabbit;
+import com.feroov.rotm.entity.hostile.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,5 +17,6 @@ public class EventsROTM
         event.put(EntitiesROTM.COWPG.get(), Cowpg.setAttributes());
         event.put(EntitiesROTM.STABBIT.get(), Stabbit.setAttributes());
         event.put(EntitiesROTM.HORSIPER.get(), Horsiper.setAttributes());
+        event.put(EntitiesROTM.CLUCKNORRIS.get(), CluckNorris.setAttributes());
     }
 }
