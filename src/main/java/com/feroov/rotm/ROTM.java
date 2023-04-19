@@ -52,6 +52,7 @@ public class ROTM
             event.accept(ItemsROTM.COWPG_SPAWN_EGG);
             event.accept(ItemsROTM.STABBIT_SPAWN_EGG);
             event.accept(ItemsROTM.HORSIPER_SPAWN_EGG);
+            event.accept(ItemsROTM.CLUCKNORRIS_SPAWN_EGG);
         }
     }
 

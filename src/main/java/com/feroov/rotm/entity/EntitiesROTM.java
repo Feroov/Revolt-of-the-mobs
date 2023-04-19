@@ -47,7 +47,7 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<CluckNorris>> CLUCKNORRIS =
             ENTITY_TYPES.register("clucknorris",
                     () -> EntityType.Builder.of(CluckNorris::new, MobCategory.CREATURE)
-                            .sized(0.7f, 0.9f)
+                            .sized(0.7f, 1.2f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "clucknorris").toString()));
 
 

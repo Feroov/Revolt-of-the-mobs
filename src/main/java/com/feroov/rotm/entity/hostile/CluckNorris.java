@@ -45,11 +45,11 @@ public class CluckNorris extends Monster implements GeoEntity
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
-                .add(Attributes.FOLLOW_RANGE, 35.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4f).build();
+                .add(Attributes.FOLLOW_RANGE, 19.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.6f).build();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CluckNorris extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new CluckNorrisAttackGoal(this, 0.3D, true, 3));
+        this.targetSelector.addGoal(2, new CluckNorrisAttackGoal(this, 0.5D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof CluckNorris);
@@ -66,7 +66,7 @@ public class CluckNorris extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.1D, 30.0D, 35.0F, 0));
+        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.4D, 22.0D, 19.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -94,7 +94,7 @@ public class CluckNorris extends Monster implements GeoEntity
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 1.95F; }
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 1.15F; }
 
     @Override
     protected void tickDeath()
@@ -277,12 +277,12 @@ public class CluckNorris extends Monster implements GeoEntity
     public void performRangedAttack(LivingEntity livingEntity, float p_32142_)
     {
         DeagleAmmo arrow = new DeagleAmmo(this.level, this);
-        double d0 = livingEntity.getEyeY() - (double)5.0F;
+        double d0 = livingEntity.getEyeY() - (double)1.5F;
         double d1 = livingEntity.getX() - this.getX();
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
-        arrow.shoot(d1, d2 + d4, d3, 4.0F, 0.1F);
+        arrow.shoot(d1, d2 + d4, d3, 1.8F, 0.1F);
         this.playSound(SoundEventsROTM.DEAGLE.get(), 6.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
