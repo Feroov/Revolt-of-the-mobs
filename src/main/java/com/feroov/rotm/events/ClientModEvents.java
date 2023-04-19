@@ -4,6 +4,7 @@ package com.feroov.rotm.events;
 import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.EntitiesROTM;
 import com.feroov.rotm.entity.hostile.renderer.*;
+import com.feroov.rotm.entity.projectiles.renderer.DeagleRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.FiftyCalRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.RifleAmmoRenderer;
 import com.feroov.rotm.entity.projectiles.renderer.RocketRenderer;
@@ -31,5 +32,6 @@ public class ClientModEvents
         event.registerEntityRenderer(EntitiesROTM.RIFLE_AMMO.get(), RifleAmmoRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.ROCKET.get(), RocketRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.FIFTY_CAL.get(), FiftyCalRenderer::new);
+        event.registerEntityRenderer(EntitiesROTM.DEAGLE.get(), DeagleRenderer::new);
     }
 }
