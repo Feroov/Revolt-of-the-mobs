@@ -4,8 +4,9 @@
 
   "item.rotm.admin_sword": "\u00A74\u00A7lBan Hammer",
 
-  "item.rotm.gunswine_spawn_egg": "Gunswine Spawn", "entity.rotm.gunswine": "Gunswine",
-  "item.rotm.cowpg_spawn_egg": "COWPG Spawn", "entity.rotm.cowpg": "COWPG",
-  "item.rotm.stabbit_spawn_egg": "Stabbit Spawn", "entity.rotm.stabbit": "Stabbit",
-  "item.rotm.horsiper_spawn_egg": "Horsiper Spawn", "entity.rotm.horsiper": "Horsiper"
+  "item.rotm.gunswine_spawn_egg": "Gunswine", "entity.rotm.gunswine": "Gunswine",
+  "item.rotm.cowpg_spawn_egg": "COWPG", "entity.rotm.cowpg": "COWPG",
+  "item.rotm.stabbit_spawn_egg": "Stabbit", "entity.rotm.stabbit": "Stabbit",
+  "item.rotm.horsiper_spawn_egg": "Horsiper", "entity.rotm.horsiper": "Horsiper",
+  "item.rotm.clucknorris_spawn_egg": "Cluck Norris", "entity.rotm.clucknorris": "Cluck Norris"
 }
