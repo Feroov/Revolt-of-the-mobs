@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://imgur.com/WLRqQle.png" alt="Logo" width="700"/> 
+</p>
+
 # Revolt of the Mobs
 
 This Minecraft mod introduces a new type of hostile mobs to the game where animals are equipped with firearms. These mobs will attack anything and everything on sight, creating a new challenge for players.
