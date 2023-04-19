@@ -1,5 +1,6 @@
 package com.feroov.rotm.entity.hostile;
 
+import com.feroov.rotm.entity.projectiles.DeagleAmmo;
 import com.feroov.rotm.entity.projectiles.FiftyCal;
 import com.feroov.rotm.sound.SoundEventsROTM;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -275,14 +276,14 @@ public class CluckNorris extends Monster implements GeoEntity
 
     public void performRangedAttack(LivingEntity livingEntity, float p_32142_)
     {
-        FiftyCal arrow = new FiftyCal(this.level, this);
+        DeagleAmmo arrow = new DeagleAmmo(this.level, this);
         double d0 = livingEntity.getEyeY() - (double)5.0F;
         double d1 = livingEntity.getX() - this.getX();
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
         arrow.shoot(d1, d2 + d4, d3, 4.0F, 0.1F);
-        this.playSound(SoundEventsROTM.FIFTY_CAL.get(), 6.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.playSound(SoundEventsROTM.DEAGLE.get(), 6.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
 
