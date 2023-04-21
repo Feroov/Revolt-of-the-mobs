@@ -8,5 +8,6 @@
   "item.rotm.cowpg_spawn_egg": "COWPG", "entity.rotm.cowpg": "COWPG",
   "item.rotm.stabbit_spawn_egg": "Stabbit", "entity.rotm.stabbit": "Stabbit",
   "item.rotm.horsiper_spawn_egg": "Horsiper", "entity.rotm.horsiper": "Horsiper",
-  "item.rotm.clucknorris_spawn_egg": "Cluck Norris", "entity.rotm.clucknorris": "Cluck Norris"
+  "item.rotm.clucknorris_spawn_egg": "Cluck Norris", "entity.rotm.clucknorris": "Cluck Norris",
+  "item.rotm.monstertank_spawn_egg": "MOO-nster Tank", "entity.rotm.monstertank": "MOO-nster Tank"
 }
