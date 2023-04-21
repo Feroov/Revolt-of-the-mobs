@@ -17,8 +17,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -60,6 +59,9 @@ public class CluckNorris extends Monster implements GeoEntity
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
         this.targetSelector.addGoal(2, new CluckNorrisAttackGoal(this, 0.5D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof CluckNorris);
         }));
