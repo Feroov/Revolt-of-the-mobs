@@ -14,6 +14,7 @@ public class CluckNorrisRenderer extends GeoEntityRenderer<CluckNorris>
     public CluckNorrisRenderer(EntityRendererProvider.Context renderManager)
     {
         super(renderManager, new CluckNorrisModel());
+        this.shadowRadius = 0.44F;
     }
 
     @Override

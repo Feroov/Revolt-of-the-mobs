@@ -14,6 +14,7 @@ public class GunswineRenderer extends GeoEntityRenderer<Gunswine>
     public GunswineRenderer(EntityRendererProvider.Context renderManager)
     {
         super(renderManager, new GunswineModel());
+        this.shadowRadius = 0.54F;
     }
 
     @Override

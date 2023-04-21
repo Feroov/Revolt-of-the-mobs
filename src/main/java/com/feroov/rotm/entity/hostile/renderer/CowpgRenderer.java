@@ -14,6 +14,7 @@ public class CowpgRenderer extends GeoEntityRenderer<Cowpg>
     public CowpgRenderer(EntityRendererProvider.Context renderManager)
     {
         super(renderManager, new CowpgModel());
+        this.shadowRadius = 0.64F;
     }
 
     @Override

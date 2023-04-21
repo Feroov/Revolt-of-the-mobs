@@ -14,6 +14,7 @@ public class StabbitRenderer extends GeoEntityRenderer<Stabbit>
     public StabbitRenderer(EntityRendererProvider.Context renderManager)
     {
         super(renderManager, new StabbitModel());
+        this.shadowRadius = 0.44F;
     }
 
     @Override

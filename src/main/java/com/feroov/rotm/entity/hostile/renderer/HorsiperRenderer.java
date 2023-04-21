@@ -14,6 +14,7 @@ public class HorsiperRenderer extends GeoEntityRenderer<Horsiper>
     public HorsiperRenderer(EntityRendererProvider.Context renderManager)
     {
         super(renderManager, new HorsiperModel());
+        this.shadowRadius = 0.64F;
     }
 
     @Override
