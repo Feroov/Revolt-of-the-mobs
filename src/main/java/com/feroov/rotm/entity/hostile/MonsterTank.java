@@ -41,12 +41,16 @@ public class MonsterTank extends Monster implements GeoEntity
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
     public static final EntityDataAccessor<Integer> ATTACK = SynchedEntityData.defineId(MonsterTank.class, EntityDataSerializers.INT);
 
-    public MonsterTank(EntityType<? extends Monster> entityType, Level level) { super(entityType, level); }
+    public MonsterTank(EntityType<? extends Monster> entityType, Level level)
+    {
+        super(entityType, level);
+        this.fireImmune();
+    }
 
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.MAX_HEALTH, 150.0D)
                 .add(Attributes.ATTACK_DAMAGE, 15.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
                 .add(Attributes.FOLLOW_RANGE, 36.0D)
@@ -80,7 +84,7 @@ public class MonsterTank extends Monster implements GeoEntity
     @Override
     protected SoundEvent getAmbientSound()
     {
-        this.playSound(SoundEventsROTM.TANK_IDLE.get(), 1.0F, 0.2F);
+        this.playSound(SoundEventsROTM.TANK_IDLE.get(), 1.5F, 0.5F);
         return null;
     }
 
@@ -100,7 +104,7 @@ public class MonsterTank extends Monster implements GeoEntity
 
     @Override
     protected void playStepSound(BlockPos blockPos, BlockState blockState) {
-        this.playSound(SoundEventsROTM.TANK_IDLE.get(), 1.0F, 0.2F);
+        this.playSound(SoundEventsROTM.TANK_IDLE.get(), 0.0F, 0.2F);
     }
 
     @Override
@@ -292,8 +296,8 @@ public class MonsterTank extends Monster implements GeoEntity
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
-        arrow.shoot(d1, d2 + d4, d3, 2.0F, 1.6F);
-        this.playSound(SoundEventsROTM.TANK.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        arrow.shoot(d1, d2 + d4, d3, 2.7F, 1.6F);
+        this.playSound(SoundEventsROTM.TANK.get(), 4.0F, 1.5F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
 

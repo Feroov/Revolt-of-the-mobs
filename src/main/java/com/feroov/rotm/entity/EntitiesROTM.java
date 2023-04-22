@@ -6,6 +6,7 @@ import com.feroov.rotm.entity.projectiles.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -32,7 +33,7 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<MonsterTank>> MONSTERTANK =
             ENTITY_TYPES.register("monstertank",
                     () -> EntityType.Builder.of(MonsterTank::new, MobCategory.CREATURE)
-                            .sized(3.2f, 3.0f)
+                            .sized(3.2f, 3.0f).fireImmune().immuneTo(Blocks.LAVA)
                             .build(new ResourceLocation(ROTM.MOD_ID, "monstertank").toString()));
 
     public static final RegistryObject<EntityType<Stabbit>> STABBIT =
