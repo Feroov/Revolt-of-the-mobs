@@ -22,6 +22,7 @@ public class SoundEventsROTM
     public static final RegistryObject<SoundEvent> DEAGLE = SOUND_EVENTS.register("deagle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "deagle")));
     public static final RegistryObject<SoundEvent> TANK = SOUND_EVENTS.register("tank", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "tank")));
     public static final RegistryObject<SoundEvent> TANK_IDLE = SOUND_EVENTS.register("tank_idle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "tank_idle")));
+    public static final RegistryObject<SoundEvent> MECHAMOO_SHOT = SOUND_EVENTS.register("mechamoo_shot", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "mechamoo_shot")));
 
 
 
