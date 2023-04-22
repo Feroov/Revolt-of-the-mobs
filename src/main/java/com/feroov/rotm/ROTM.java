@@ -49,6 +49,7 @@ public class ROTM
             event.accept(ItemsROTM.GUNSWINE_SPAWN_EGG);
             event.accept(ItemsROTM.COWPG_SPAWN_EGG);
             event.accept(ItemsROTM.MONSTERTANK_SPAWN_EGG);
+            event.accept(ItemsROTM.MECHAMOO_SPAWN_EGG);
             event.accept(ItemsROTM.STABBIT_SPAWN_EGG);
             event.accept(ItemsROTM.HORSIPER_SPAWN_EGG);
             event.accept(ItemsROTM.CLUCKNORRIS_SPAWN_EGG);
