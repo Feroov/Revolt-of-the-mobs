@@ -64,10 +64,7 @@ public class MonsterTank extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
-            return p_28879_ instanceof Enemy && !(p_28879_ instanceof MonsterTank);
-        }));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
-            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg);
+            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg) && !(p_28879_ instanceof MonsterTank);
         }));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
