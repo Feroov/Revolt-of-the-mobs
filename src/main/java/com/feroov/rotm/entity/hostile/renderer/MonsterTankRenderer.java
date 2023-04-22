@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
+
+
 public class MonsterTankRenderer extends GeoEntityRenderer<MonsterTank>
 {
     public MonsterTankRenderer(EntityRendererProvider.Context renderManager)

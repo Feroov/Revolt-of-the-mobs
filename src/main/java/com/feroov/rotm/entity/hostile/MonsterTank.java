@@ -1,6 +1,7 @@
 package com.feroov.rotm.entity.hostile;
 
-import com.feroov.rotm.entity.projectiles.Rocket;
+
+import com.feroov.rotm.entity.projectiles.TankShell;
 import com.feroov.rotm.sound.SoundEventsROTM;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -43,11 +44,12 @@ public class MonsterTank extends Monster implements GeoEntity
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 65.0D)
-                .add(Attributes.ATTACK_DAMAGE, 8.0f)
+                .add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.ATTACK_DAMAGE, 15.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
                 .add(Attributes.FOLLOW_RANGE, 36.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4f).build();
+                .add(Attributes.MOVEMENT_SPEED, 0.4f)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 100.0D).build();
     }
 
     @Override
@@ -56,13 +58,16 @@ public class MonsterTank extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.1D, true, 3));
+        this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.5D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof MonsterTank);
+        }));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
+            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg);
         }));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
@@ -76,21 +81,21 @@ public class MonsterTank extends Monster implements GeoEntity
     @Override
     protected SoundEvent getAmbientSound()
     {
-        this.playSound(SoundEvents.COW_AMBIENT, 1.0F, 0.2F);
+        this.playSound(SoundEventsROTM.TANK_IDLE.get(), 1.0F, 0.2F);
         return null;
     }
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
     {
-        this.playSound(SoundEvents.COW_HURT, 1.0F, 0.2F);
+        this.playSound(SoundEvents.ANVIL_PLACE, 1.0F, 0.5F);
         return null;
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        this.playSound(SoundEvents.COW_DEATH, 1.0F, 0.2F);
+        this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.2F);
         return null;
     }
 
@@ -277,14 +282,14 @@ public class MonsterTank extends Monster implements GeoEntity
 
     public void performRangedAttack(LivingEntity livingEntity, float p_32142_)
     {
-        Rocket arrow = new Rocket(this.level, this);
+        TankShell arrow = new TankShell(this.level, this);
         double d0 = livingEntity.getEyeY() - (double)2.5F;
         double d1 = livingEntity.getX() - this.getX();
         double d2 = d0 - arrow.getY();
         double d3 = livingEntity.getZ() - this.getZ();
         double d4 = Math.sqrt(d1 * d1 + d3 * d3) * (double)0.2F;
         arrow.shoot(d1, d2 + d4, d3, 2.0F, 1.6F);
-        this.playSound(SoundEventsROTM.ROCKET.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.playSound(SoundEventsROTM.TANK.get(), 4.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(arrow);
     }
 
@@ -366,4 +371,9 @@ public class MonsterTank extends Monster implements GeoEntity
     }
     @Override
     public boolean isBaby() { return false;}
+
+    @Override
+    public boolean isOnFire() {
+        return false;
+    }
 }
