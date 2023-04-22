@@ -3,6 +3,7 @@ package com.feroov.rotm.entity.hostile;
 
 import com.feroov.rotm.entity.projectiles.TankShell;
 import com.feroov.rotm.sound.SoundEventsROTM;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -94,6 +96,11 @@ public class MonsterTank extends Monster implements GeoEntity
     {
         this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.2F);
         return null;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+        this.playSound(SoundEventsROTM.TANK_IDLE.get(), 1.0F, 0.2F);
     }
 
     @Override

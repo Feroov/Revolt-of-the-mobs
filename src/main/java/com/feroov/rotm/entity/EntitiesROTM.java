@@ -32,7 +32,7 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<MonsterTank>> MONSTERTANK =
             ENTITY_TYPES.register("monstertank",
                     () -> EntityType.Builder.of(MonsterTank::new, MobCategory.CREATURE)
-                            .sized(2.5f, 3.0f)
+                            .sized(3.2f, 3.0f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "monstertank").toString()));
 
     public static final RegistryObject<EntityType<Stabbit>> STABBIT =
