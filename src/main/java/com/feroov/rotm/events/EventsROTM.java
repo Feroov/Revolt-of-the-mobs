@@ -16,6 +16,7 @@ public class EventsROTM
         event.put(EntitiesROTM.GUNSWINE.get(), Gunswine.setAttributes());
         event.put(EntitiesROTM.COWPG.get(), Cowpg.setAttributes());
         event.put(EntitiesROTM.MONSTERTANK.get(), MonsterTank.setAttributes());
+        event.put(EntitiesROTM.MECHAMOO.get(), Mechamoo.setAttributes());
         event.put(EntitiesROTM.STABBIT.get(), Stabbit.setAttributes());
         event.put(EntitiesROTM.HORSIPER.get(), Horsiper.setAttributes());
         event.put(EntitiesROTM.CLUCKNORRIS.get(), CluckNorris.setAttributes());
