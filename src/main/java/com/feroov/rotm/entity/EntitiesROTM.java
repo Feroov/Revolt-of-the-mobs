@@ -2,10 +2,7 @@ package com.feroov.rotm.entity;
 
 import com.feroov.rotm.ROTM;
 import com.feroov.rotm.entity.hostile.*;
-import com.feroov.rotm.entity.projectiles.DeagleAmmo;
-import com.feroov.rotm.entity.projectiles.FiftyCal;
-import com.feroov.rotm.entity.projectiles.RifleAmmo;
-import com.feroov.rotm.entity.projectiles.Rocket;
+import com.feroov.rotm.entity.projectiles.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -35,7 +32,7 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<MonsterTank>> MONSTERTANK =
             ENTITY_TYPES.register("monstertank",
                     () -> EntityType.Builder.of(MonsterTank::new, MobCategory.CREATURE)
-                            .sized(0.9f, 2.2f)
+                            .sized(2.5f, 3.0f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "monstertank").toString()));
 
     public static final RegistryObject<EntityType<Stabbit>> STABBIT =
@@ -74,6 +71,10 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<Rocket>> ROCKET = ENTITY_TYPES.register("rocket",
             () -> EntityType.Builder.<Rocket>of(Rocket::new, MobCategory.MISC).sized(0.7F, 0.7F)
                     .clientTrackingRange(9).build(new ResourceLocation(ROTM.MOD_ID, "rocket").toString()));
+
+    public static final RegistryObject<EntityType<TankShell>> TANKSHELL = ENTITY_TYPES.register("tankshell",
+            () -> EntityType.Builder.<TankShell>of(TankShell::new, MobCategory.MISC).sized(1.0F, 1.0F)
+                    .clientTrackingRange(9).build(new ResourceLocation(ROTM.MOD_ID, "tankshell").toString()));
 
 
     public static void register(IEventBus eventBus) { ENTITY_TYPES.register(eventBus); }
