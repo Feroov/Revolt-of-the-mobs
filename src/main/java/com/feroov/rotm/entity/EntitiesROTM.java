@@ -36,6 +36,12 @@ public class EntitiesROTM
                             .sized(3.2f, 3.0f).fireImmune().immuneTo(Blocks.LAVA)
                             .build(new ResourceLocation(ROTM.MOD_ID, "monstertank").toString()));
 
+    public static final RegistryObject<EntityType<Mechamoo>> MECHAMOO =
+            ENTITY_TYPES.register("mechamoo",
+                    () -> EntityType.Builder.of(Mechamoo::new, MobCategory.CREATURE)
+                            .sized(3.2f, 5.0f).fireImmune().immuneTo(Blocks.LAVA)
+                            .build(new ResourceLocation(ROTM.MOD_ID, "mechamoo").toString()));
+
     public static final RegistryObject<EntityType<Stabbit>> STABBIT =
             ENTITY_TYPES.register("stabbit",
                     () -> EntityType.Builder.of(Stabbit::new, MobCategory.CREATURE)
