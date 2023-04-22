@@ -48,7 +48,7 @@ public class MonsterTank extends Monster implements GeoEntity
                 .add(Attributes.ATTACK_DAMAGE, 15.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
                 .add(Attributes.FOLLOW_RANGE, 36.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4f)
+                .add(Attributes.MOVEMENT_SPEED, 0.5f)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 100.0D).build();
     }
 
@@ -58,7 +58,7 @@ public class MonsterTank extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.5D, true, 3));
+        this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.4D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
@@ -69,7 +69,7 @@ public class MonsterTank extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.1D, 40.0D, 73.0F, 0));
+        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.4D, 40.0D, 73.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
