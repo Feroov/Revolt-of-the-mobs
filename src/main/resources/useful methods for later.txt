@@ -1,0 +1,21 @@
+RENDER PART
+
+    // Shows name
+    @Override
+    public boolean shouldShowName(MonsterTank entity) {
+        return true;
+    }
+
+    // Spider eye type render in dark
+    @Override
+    protected int getBlockLightLevel(MonsterTank entity, BlockPos blockPos) {
+        return 15;
+    }
+
+    // some rendering stuff
+    @Override
+    public RenderType getRenderType(MonsterTank animatable, ResourceLocation texture,
+                                     @Nullable MultiBufferSource bufferSource,
+                                     float partialTick) {
+        return RenderType.dragonExplosionAlpha(texture);
+    }
