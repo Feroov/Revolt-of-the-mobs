@@ -59,7 +59,7 @@ public class Cowpg extends Monster implements GeoEntity
         this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.1D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
-            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg) && !(p_28879_ instanceof MonsterTank);
+            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg) && !(p_28879_ instanceof MonsterTank) && !(p_28879_ instanceof Mechamoo);
         }));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
