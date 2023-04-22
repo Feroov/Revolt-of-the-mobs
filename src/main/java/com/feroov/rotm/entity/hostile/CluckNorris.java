@@ -59,12 +59,12 @@ public class CluckNorris extends Monster implements GeoEntity
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
         this.targetSelector.addGoal(2, new CluckNorrisAttackGoal(this, 0.5D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof CluckNorris);
         }));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
