@@ -3,5 +3,7 @@
   "ak47": {"category": "hostile", "sounds": [{"name": "rotm:ak47"}], "subtitle": "rotm.ak47"},
   "rocket": {"category": "hostile", "sounds": [{"name": "rotm:rocket"}], "subtitle": "rotm.rocket"},
   "50cal": {"category": "hostile", "sounds": [{"name": "rotm:50cal"}], "subtitle": "rotm.50cal"},
-  "deagle": {"category": "hostile", "sounds": [{"name": "rotm:deagle"}], "subtitle": "rotm.deagle"}
+  "deagle": {"category": "hostile", "sounds": [{"name": "rotm:deagle"}], "subtitle": "rotm.deagle"},
+  "tank": {"category": "hostile", "sounds": [{"name": "rotm:tank"}], "subtitle": "rotm.tank"},
+  "tank_idle": {"category": "hostile", "sounds": [{"name": "rotm:tank_idle"}], "subtitle": "rotm.tank_idle"}
 }

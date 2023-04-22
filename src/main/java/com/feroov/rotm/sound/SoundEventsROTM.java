@@ -21,6 +21,8 @@ public class SoundEventsROTM
     public static final RegistryObject<SoundEvent> FIFTY_CAL = SOUND_EVENTS.register("50cal", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "50cal")));
     public static final RegistryObject<SoundEvent> DEAGLE = SOUND_EVENTS.register("deagle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "deagle")));
     public static final RegistryObject<SoundEvent> TANK = SOUND_EVENTS.register("tank", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "tank")));
+    public static final RegistryObject<SoundEvent> TANK_IDLE = SOUND_EVENTS.register("tank_idle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "tank_idle")));
+
 
 
     public static void register(IEventBus eventBus) { SOUND_EVENTS.register(eventBus); }
