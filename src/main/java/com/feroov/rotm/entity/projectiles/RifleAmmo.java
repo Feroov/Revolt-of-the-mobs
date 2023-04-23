@@ -38,9 +38,6 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
 {
 
     public static final EntityDataAccessor<Integer> PARTICLE = SynchedEntityData.defineId(RifleAmmo.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(ThrowableItemProjectile.class, EntityDataSerializers.ITEM_STACK);
-    protected int timeInAir;
-    protected boolean inAir;
     private int ticksInAir;
 
     private float projectiledamage = 2.2F;
@@ -54,22 +51,10 @@ public class RifleAmmo extends AbstractArrow implements GeoEntity
         this.pickup = AbstractArrow.Pickup.DISALLOWED;
     }
 
-    public RifleAmmo(Level world, LivingEntity owner, float damage)
-    {
-        super(EntitiesROTM.RIFLE_AMMO.get(), owner, world);
-        this.projectiledamage = damage;
-    }
-
     public RifleAmmo(Level world, LivingEntity owner)
     {
         super(EntitiesROTM.RIFLE_AMMO.get(), owner, world);
     }
-
-    protected RifleAmmo(EntityType<? extends RifleAmmo> type, double x, double y, double z, Level world)
-    {
-        this(type, world);
-    }
-
 
     /******************************************** Methods of Interest ************************************************************/
     @Override
