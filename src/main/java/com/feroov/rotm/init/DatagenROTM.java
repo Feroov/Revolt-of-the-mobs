@@ -8,8 +8,6 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-
-
 @Mod.EventBusSubscriber(modid = ROTM.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DatagenROTM
 {
@@ -19,10 +17,6 @@ public class DatagenROTM
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-//        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-
         generator.addProvider(true, new ItemModelProviderROTM(packOutput, existingFileHelper));
-
-//        generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
     }
 }
