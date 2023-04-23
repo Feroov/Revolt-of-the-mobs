@@ -1,6 +1,7 @@
 package com.feroov.rotm.entity.projectiles;
 
 import com.feroov.rotm.entity.EntitiesROTM;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +24,9 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -38,9 +43,6 @@ public class FiftyCal extends AbstractArrow implements GeoEntity
 {
 
     public static final EntityDataAccessor<Integer> PARTICLE = SynchedEntityData.defineId(FiftyCal.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(ThrowableItemProjectile.class, EntityDataSerializers.ITEM_STACK);
-    protected int timeInAir;
-    protected boolean inAir;
     private int ticksInAir;
 
     private float projectiledamage = 12.2F;
@@ -54,20 +56,9 @@ public class FiftyCal extends AbstractArrow implements GeoEntity
         this.pickup = Pickup.DISALLOWED;
     }
 
-    public FiftyCal(Level world, LivingEntity owner, float damage)
-    {
-        super(EntitiesROTM.FIFTY_CAL.get(), owner, world);
-        this.projectiledamage = damage;
-    }
-
     public FiftyCal(Level world, LivingEntity owner)
     {
         super(EntitiesROTM.FIFTY_CAL.get(), owner, world);
-    }
-
-    protected FiftyCal(EntityType<? extends FiftyCal> type, double x, double y, double z, Level world)
-    {
-        this(type, world);
     }
 
     /******************************************** Methods of Interest ************************************************************/
@@ -134,6 +125,19 @@ public class FiftyCal extends AbstractArrow implements GeoEntity
             double x = this.getX() + (this.random.nextDouble()) * (double) this.getBbWidth() * 1.5D;
             double z = this.getZ() + (this.random.nextDouble()) * (double) this.getBbWidth() * 0.5D;
             this.level.addParticle(ParticleTypes.FLAME, true, x, this.getY(), z, 0, 0, 0);
+        }
+
+        boolean flag = false;
+        AABB aabb = this.getBoundingBox().inflate(0.2D);
+        for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX),
+                Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+            BlockState blockstate = this.level.getBlockState(blockpos);
+            Block block = blockstate.getBlock();
+            if (block instanceof LeavesBlock || block instanceof AbstractGlassBlock ||
+                    block instanceof BushBlock || block instanceof AnvilBlock)
+            {
+                flag = this.level.destroyBlock(blockpos, true, this) || flag;
+            }
         }
     }
     /***************************************************************************************************************************/
