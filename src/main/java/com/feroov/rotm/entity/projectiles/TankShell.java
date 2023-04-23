@@ -18,7 +18,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -38,9 +37,6 @@ public class TankShell extends AbstractArrow implements GeoEntity
 {
 
     public static final EntityDataAccessor<Integer> PARTICLE = SynchedEntityData.defineId(TankShell.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(ThrowableItemProjectile.class, EntityDataSerializers.ITEM_STACK);
-    protected int timeInAir;
-    protected boolean inAir;
     private int ticksInAir;
 
     private float projectiledamage = 6F;
@@ -55,20 +51,9 @@ public class TankShell extends AbstractArrow implements GeoEntity
         this.pickup = Pickup.DISALLOWED;
     }
 
-    public TankShell(Level world, LivingEntity owner, float damage)
-    {
-        super(EntitiesROTM.TANKSHELL.get(), owner, world);
-        this.projectiledamage = damage;
-    }
-
     public TankShell(Level world, LivingEntity owner)
     {
         super(EntitiesROTM.TANKSHELL.get(), owner, world);
-    }
-
-    protected TankShell(EntityType<? extends TankShell> type, double x, double y, double z, Level world)
-    {
-        this(type, world);
     }
 
     /******************************************** Methods of Interest ************************************************************/
@@ -157,10 +142,6 @@ public class TankShell extends AbstractArrow implements GeoEntity
     @Override
     protected void defineSynchedData() { super.defineSynchedData(); this.entityData.define(PARTICLE, 0); }
 
-    public Integer useParticle() { return this.entityData.get(PARTICLE); }
-    public void setParticle(Integer spin) { this.entityData.set(PARTICLE, spin); }
-
-
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() { return NetworkHooks.getEntitySpawningPacket(this);}
 
@@ -212,11 +193,4 @@ public class TankShell extends AbstractArrow implements GeoEntity
             this.discard();
         }
     }
-
-    //    @Override
-//    public boolean isNoGravity() {
-//        if (this.isInWater())
-//            return false;
-//        return true;
-//    }
 }
