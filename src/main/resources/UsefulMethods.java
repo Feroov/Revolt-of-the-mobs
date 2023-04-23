@@ -1,6 +1,4 @@
-RENDER PART
-
-    // Shows name
+    // Shows name on top of entity
     @Override
     public boolean shouldShowName(MonsterTank entity) {
         return true;
@@ -12,10 +10,18 @@ RENDER PART
         return 15;
     }
 
-    // some rendering stuff
+    // Rendering
     @Override
     public RenderType getRenderType(MonsterTank animatable, ResourceLocation texture,
-                                     @Nullable MultiBufferSource bufferSource,
-                                     float partialTick) {
+                                    @Nullable MultiBufferSource bufferSource,
+                                    float partialTick) {
         return RenderType.dragonExplosionAlpha(texture);
+    }
+
+    // Removes gravity from projectiles
+    @Override
+    public boolean isNoGravity() {
+        if (this.isInWater())
+            return false;
+        return true;
     }
