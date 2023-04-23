@@ -1,7 +1,6 @@
 package com.feroov.rotm.entity.hostile;
 
 import com.feroov.rotm.entity.projectiles.DeagleAmmo;
-import com.feroov.rotm.entity.projectiles.FiftyCal;
 import com.feroov.rotm.sound.SoundEventsROTM;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -68,7 +67,7 @@ public class CluckNorris extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.4D, 22.0D, 19.0F, 0));
+        this.goalSelector.addGoal(4, new CluckNorrisRangedAttackGoal(this, 0.4D, 22.0D, 19.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -152,7 +151,7 @@ public class CluckNorris extends Monster implements GeoEntity
 
     public void setAttackingState(int time) { this.entityData.set(ATTACK, time); }
 
-    public static class CowpgRangedAttackGoal extends Goal
+    public static class CluckNorrisRangedAttackGoal extends Goal
     {
         private final CluckNorris mob;
         private final CluckNorris rangedAttackMob;
@@ -165,21 +164,21 @@ public class CluckNorris extends Monster implements GeoEntity
         private boolean strafingClockwise, strafingBackwards;
         private int strafingTime = -1;
 
-        public CowpgRangedAttackGoal(CluckNorris cowpg, double speedIn, double dpsIn, float rangeIn, int state)
+        public CluckNorrisRangedAttackGoal(CluckNorris cluckNorris, double speedIn, double dpsIn, float rangeIn, int state)
         {
-            this(cowpg, speedIn, dpsIn, dpsIn, rangeIn, state);
+            this(cluckNorris, speedIn, dpsIn, dpsIn, rangeIn, state);
         }
 
-        public CowpgRangedAttackGoal(CluckNorris cowpg, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
+        public CluckNorrisRangedAttackGoal(CluckNorris cluckNorris, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
         {
-            if (cowpg == null)
+            if (cluckNorris == null)
             {
                 throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
             }
             else
             {
-                this.rangedAttackMob =  cowpg;
-                this.mob =  cowpg;
+                this.rangedAttackMob =  cluckNorris;
+                this.mob =  cluckNorris;
                 this.speedModifier = speedIn;
                 this.attackIntervalMin = atckIntervalMin;
                 this.attackIntervalMax = atckIntervalMax;
