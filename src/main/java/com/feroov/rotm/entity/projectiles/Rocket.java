@@ -18,7 +18,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -38,9 +37,6 @@ public class Rocket extends AbstractArrow implements GeoEntity
 {
 
     public static final EntityDataAccessor<Integer> PARTICLE = SynchedEntityData.defineId(Rocket.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(ThrowableItemProjectile.class, EntityDataSerializers.ITEM_STACK);
-    protected int timeInAir;
-    protected boolean inAir;
     private int ticksInAir;
 
     private float projectiledamage = 2.2F;
@@ -55,20 +51,9 @@ public class Rocket extends AbstractArrow implements GeoEntity
         this.pickup = Pickup.DISALLOWED;
     }
 
-    public Rocket(Level world, LivingEntity owner, float damage)
-    {
-        super(EntitiesROTM.ROCKET.get(), owner, world);
-        this.projectiledamage = damage;
-    }
-
     public Rocket(Level world, LivingEntity owner)
     {
         super(EntitiesROTM.ROCKET.get(), owner, world);
-    }
-
-    protected Rocket(EntityType<? extends Rocket> type, double x, double y, double z, Level world)
-    {
-        this(type, world);
     }
 
     /******************************************** Methods of Interest ************************************************************/
@@ -212,11 +197,4 @@ public class Rocket extends AbstractArrow implements GeoEntity
             this.discard();
         }
     }
-
-    //    @Override
-//    public boolean isNoGravity() {
-//        if (this.isInWater())
-//            return false;
-//        return true;
-//    }
 }
