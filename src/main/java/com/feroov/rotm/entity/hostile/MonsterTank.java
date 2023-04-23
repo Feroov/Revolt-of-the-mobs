@@ -64,7 +64,7 @@ public class MonsterTank extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new CowpgAttackGoal(this, 0.4D, true, 3));
+        this.targetSelector.addGoal(2, new MonsterTankAttackGoal(this, 0.4D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg) && !(p_28879_ instanceof MonsterTank) && !(p_28879_ instanceof Mechamoo);
@@ -75,7 +75,7 @@ public class MonsterTank extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.4D, 40.0D, 73.0F, 0));
+        this.goalSelector.addGoal(4, new MonsterTankRangedAttackGoal(this, 0.4D, 40.0D, 73.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -164,7 +164,7 @@ public class MonsterTank extends Monster implements GeoEntity
 
     public void setAttackingState(int time) { this.entityData.set(ATTACK, time); }
 
-    public static class CowpgRangedAttackGoal extends Goal
+    public static class MonsterTankRangedAttackGoal extends Goal
     {
         private final MonsterTank mob;
         private final MonsterTank rangedAttackMob;
@@ -177,21 +177,21 @@ public class MonsterTank extends Monster implements GeoEntity
         private boolean strafingClockwise, strafingBackwards;
         private int strafingTime = -1;
 
-        public CowpgRangedAttackGoal(MonsterTank cowpg, double speedIn, double dpsIn, float rangeIn, int state)
+        public MonsterTankRangedAttackGoal(MonsterTank monsterTank, double speedIn, double dpsIn, float rangeIn, int state)
         {
-            this(cowpg, speedIn, dpsIn, dpsIn, rangeIn, state);
+            this(monsterTank, speedIn, dpsIn, dpsIn, rangeIn, state);
         }
 
-        public CowpgRangedAttackGoal(MonsterTank cowpg, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
+        public MonsterTankRangedAttackGoal(MonsterTank monsterTank, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
         {
-            if (cowpg == null)
+            if (monsterTank == null)
             {
                 throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
             }
             else
             {
-                this.rangedAttackMob =  cowpg;
-                this.mob =  cowpg;
+                this.rangedAttackMob =  monsterTank;
+                this.mob =  monsterTank;
                 this.speedModifier = speedIn;
                 this.attackIntervalMin = atckIntervalMin;
                 this.attackIntervalMax = atckIntervalMax;
@@ -305,14 +305,14 @@ public class MonsterTank extends Monster implements GeoEntity
 
 
 
-    static class CowpgAttackGoal extends MeleeAttackGoal
+    static class MonsterTankAttackGoal extends MeleeAttackGoal
     {
         private final MonsterTank entity;
         private final double speedModifier;
         private int statecheck, ticksUntilNextPathRecalculation, ticksUntilNextAttack;
         private double pathedTargetX, pathedTargetY, pathedTargetZ;
 
-        public CowpgAttackGoal(MonsterTank zombieIn, double speedIn, boolean longMemoryIn, int state)
+        public MonsterTankAttackGoal(MonsterTank zombieIn, double speedIn, boolean longMemoryIn, int state)
         {
             super(zombieIn, speedIn, longMemoryIn);
             this.entity = zombieIn;
