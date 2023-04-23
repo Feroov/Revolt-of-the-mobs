@@ -1,7 +1,6 @@
 package com.feroov.rotm.entity.hostile;
 
 import com.feroov.rotm.entity.projectiles.FiftyCal;
-import com.feroov.rotm.entity.projectiles.RifleAmmo;
 import com.feroov.rotm.sound.SoundEventsROTM;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -57,7 +56,7 @@ public class Mechamoo extends Monster implements GeoEntity
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
-        this.targetSelector.addGoal(2, new GunswineAttackGoal(this, 0.5D, true, 3));
+        this.targetSelector.addGoal(2, new MechamooAttackGoal(this, 0.5D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Mechamoo) && !(p_28879_ instanceof MonsterTank) && !(p_28879_ instanceof Cowpg);
@@ -68,7 +67,7 @@ public class Mechamoo extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new GunswineRangedAttackGoal(this, 0.40D, 4.3D, 40.0F, 0));
+        this.goalSelector.addGoal(4, new MechamooRangedAttackGoal(this, 0.40D, 4.3D, 40.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -152,7 +151,7 @@ public class Mechamoo extends Monster implements GeoEntity
 
     public void setAttackingState(int time) { this.entityData.set(ATTACK, time); }
 
-    public static class GunswineRangedAttackGoal extends Goal
+    public static class MechamooRangedAttackGoal extends Goal
     {
         private final Mechamoo mob;
         private final Mechamoo rangedAttackMob;
@@ -165,21 +164,21 @@ public class Mechamoo extends Monster implements GeoEntity
         private boolean strafingClockwise, strafingBackwards;
         private int strafingTime = -1;
 
-        public GunswineRangedAttackGoal(Mechamoo gunswine, double speedIn, double dpsIn, float rangeIn, int state)
+        public MechamooRangedAttackGoal(Mechamoo mechamoo, double speedIn, double dpsIn, float rangeIn, int state)
         {
-            this(gunswine, speedIn, dpsIn, dpsIn, rangeIn, state);
+            this(mechamoo, speedIn, dpsIn, dpsIn, rangeIn, state);
         }
 
-        public GunswineRangedAttackGoal(Mechamoo gunswine, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
+        public MechamooRangedAttackGoal(Mechamoo mechamoo, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
         {
-            if (gunswine == null)
+            if (mechamoo == null)
             {
                 throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
             }
             else
             {
-                this.rangedAttackMob =  gunswine;
-                this.mob =  gunswine;
+                this.rangedAttackMob =  mechamoo;
+                this.mob =  mechamoo;
                 this.speedModifier = speedIn;
                 this.attackIntervalMin = atckIntervalMin;
                 this.attackIntervalMax = atckIntervalMax;
@@ -293,14 +292,14 @@ public class Mechamoo extends Monster implements GeoEntity
 
 
 
-    static class GunswineAttackGoal extends MeleeAttackGoal
+    static class MechamooAttackGoal extends MeleeAttackGoal
     {
         private final Mechamoo entity;
         private final double speedModifier;
         private int statecheck, ticksUntilNextPathRecalculation, ticksUntilNextAttack;
         private double pathedTargetX, pathedTargetY, pathedTargetZ;
 
-        public GunswineAttackGoal(Mechamoo zombieIn, double speedIn, boolean longMemoryIn, int state)
+        public MechamooAttackGoal(Mechamoo zombieIn, double speedIn, boolean longMemoryIn, int state)
         {
             super(zombieIn, speedIn, longMemoryIn);
             this.entity = zombieIn;
