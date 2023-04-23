@@ -67,7 +67,7 @@ public class Horsiper extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new CowpgRangedAttackGoal(this, 0.1D, 40.0D, 35.0F, 0));
+        this.goalSelector.addGoal(4, new HorsiperRangedAttackGoal(this, 0.1D, 40.0D, 35.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -151,7 +151,7 @@ public class Horsiper extends Monster implements GeoEntity
 
     public void setAttackingState(int time) { this.entityData.set(ATTACK, time); }
 
-    public static class CowpgRangedAttackGoal extends Goal
+    public static class HorsiperRangedAttackGoal extends Goal
     {
         private final Horsiper mob;
         private final Horsiper rangedAttackMob;
@@ -164,21 +164,21 @@ public class Horsiper extends Monster implements GeoEntity
         private boolean strafingClockwise, strafingBackwards;
         private int strafingTime = -1;
 
-        public CowpgRangedAttackGoal(Horsiper cowpg, double speedIn, double dpsIn, float rangeIn, int state)
+        public HorsiperRangedAttackGoal(Horsiper horsiper, double speedIn, double dpsIn, float rangeIn, int state)
         {
-            this(cowpg, speedIn, dpsIn, dpsIn, rangeIn, state);
+            this(horsiper, speedIn, dpsIn, dpsIn, rangeIn, state);
         }
 
-        public CowpgRangedAttackGoal(Horsiper cowpg, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
+        public HorsiperRangedAttackGoal(Horsiper horsiper, double speedIn, double atckIntervalMin, double atckIntervalMax, float atckRadius, int state)
         {
-            if (cowpg == null)
+            if (horsiper == null)
             {
                 throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
             }
             else
             {
-                this.rangedAttackMob =  cowpg;
-                this.mob =  cowpg;
+                this.rangedAttackMob =  horsiper;
+                this.mob =  horsiper;
                 this.speedModifier = speedIn;
                 this.attackIntervalMin = atckIntervalMin;
                 this.attackIntervalMax = atckIntervalMax;
