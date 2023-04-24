@@ -28,7 +28,7 @@ public class ItemsROTM
         public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn)
         {
             super.appendHoverText(stack, worldIn, tooltip, flagIn);
-            tooltip.add(Component.translatable("Verbannen Sie jede Kreatur vom Bildschirm")
+            tooltip.add(Component.translatable("Banish everything off the screen")
                     .withStyle(ChatFormatting.RED));
         }
     });

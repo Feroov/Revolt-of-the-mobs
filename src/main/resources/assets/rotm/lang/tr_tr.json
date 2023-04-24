@@ -1,0 +1,14 @@
+{
+  "creativemodetab.rotm_tab": "Revolt of the Mobs",
+
+
+  "item.rotm.admin_sword": "\u00A74\u00A7lBan Çekiçi",
+
+  "item.rotm.gunswine_spawn_egg": "Tüfekdomuzu", "entity.rotm.gunswine": "Tüfekdomuzu",
+  "item.rotm.cowpg_spawn_egg": "COWPG", "entity.rotm.cowpg": "COWPG",
+  "item.rotm.stabbit_spawn_egg": "Bıçaklı Tavşan", "entity.rotm.stabbit": "Bıçaklı Tavşan",
+  "item.rotm.horsiper_spawn_egg": "Keskinat", "entity.rotm.horsiper": "Keskinat",
+  "item.rotm.clucknorris_spawn_egg": "Cluck Norris", "entity.rotm.clucknorris": "Cluck Norris",
+  "item.rotm.monstertank_spawn_egg": "\u00A7eMÖÖÖ-Tankı", "entity.rotm.monstertank": "\u00A7eMÖÖÖ-Tankı",
+  "item.rotm.mechamoo_spawn_egg": "\u00A74Mecha-MÖÖÖ", "entity.rotm.mechamoo": "\u00A74Mecha-MÖÖÖ"
+}
