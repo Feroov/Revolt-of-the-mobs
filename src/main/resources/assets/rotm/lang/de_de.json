@@ -10,5 +10,6 @@
   "item.rotm.horsiper_spawn_egg": "Scharfschützenross", "entity.rotm.horsiper": "Scharfschützenross",
   "item.rotm.clucknorris_spawn_egg": "Cluck Norris", "entity.rotm.clucknorris": "Cluck Norris",
   "item.rotm.monstertank_spawn_egg": "\u00A7eMuh-nster Panzer", "entity.rotm.monstertank": "\u00A7eMuh-nster Panzerk",
-  "item.rotm.mechamoo_spawn_egg": "\u00A74Mecha-MUH", "entity.rotm.mechamoo": "\u00A74Mecha-MUH"
+  "item.rotm.mechamoo_spawn_egg": "\u00A74Mecha-MUH", "entity.rotm.mechamoo": "\u00A74Mecha-MUH",
+  "item.rotm.mechamoo_spawn_egg": "\u00A7eNinjapferd", "entity.rotm.mechamoo": "\u00A7eNinjapferd"
 }
