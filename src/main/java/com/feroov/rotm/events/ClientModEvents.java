@@ -25,6 +25,7 @@ public class ClientModEvents
         event.registerEntityRenderer(EntitiesROTM.MECHAMOO.get(), MechamooRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.STABBIT.get(), StabbitRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.HORSIPER.get(), HorsiperRenderer::new);
+        event.registerEntityRenderer(EntitiesROTM.NINJORSE.get(), NinjorseRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.CLUCKNORRIS.get(), CluckNorrisRenderer::new);
 
         // Misc
