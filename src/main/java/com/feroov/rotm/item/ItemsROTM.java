@@ -51,6 +51,9 @@ public class ItemsROTM
     public static final RegistryObject<Item> HORSIPER_SPAWN_EGG = ITEMS.register("horsiper_spawn_egg",
             () -> new ForgeSpawnEggItem(EntitiesROTM.HORSIPER, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 
+    public static final RegistryObject<Item> NINJORSE_SPAWN_EGG = ITEMS.register("ninjorse_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntitiesROTM.NINJORSE, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
+
     public static final RegistryObject<Item> CLUCKNORRIS_SPAWN_EGG = ITEMS.register("clucknorris_spawn_egg",
             () -> new ForgeSpawnEggItem(EntitiesROTM.CLUCKNORRIS, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 

@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "rotm:item/ninjorse_spawn_egg"
+  }
+}
