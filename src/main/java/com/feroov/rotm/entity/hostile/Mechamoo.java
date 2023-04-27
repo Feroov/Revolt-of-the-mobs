@@ -47,6 +47,7 @@ public class Mechamoo extends Monster implements GeoEntity
                 .add(Attributes.ATTACK_DAMAGE, 8.0f)
                 .add(Attributes.ATTACK_SPEED, 1.0f)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
+                .add(Attributes.JUMP_STRENGTH, 20F)
                 .add(Attributes.MOVEMENT_SPEED, 0.5f).build();
     }
 
@@ -67,7 +68,7 @@ public class Mechamoo extends Monster implements GeoEntity
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(4, new MechamooRangedAttackGoal(this, 0.40D, 4.3D, 40.0F, 0));
+        this.goalSelector.addGoal(4, new MechamooRangedAttackGoal(this, 0.40D, 6.3D, 40.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
         this.goalSelector.addGoal(6, new MoveTowardsRestrictionGoal(this, 0.4D));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
