@@ -59,7 +59,7 @@ public class Horsiper extends Monster implements GeoEntity
         this.targetSelector.addGoal(2, new HorsiperAttackGoal(this, 0.3D, true, 3));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
-            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Horsiper);
+            return p_28879_ instanceof Enemy && !(p_28879_ instanceof Horsiper) && !(p_28879_ instanceof Ninjorse);
         }));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
