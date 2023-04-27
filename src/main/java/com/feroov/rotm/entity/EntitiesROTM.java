@@ -57,7 +57,7 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<Ninjorse>> NINJORSE =
             ENTITY_TYPES.register("ninjorse",
                     () -> EntityType.Builder.of(Ninjorse::new, MobCategory.CREATURE)
-                            .sized(0.9f, 2.2f)
+                            .sized(1.2f, 3.4f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "ninjorse").toString()));
 
     public static final RegistryObject<EntityType<CluckNorris>> CLUCKNORRIS =
