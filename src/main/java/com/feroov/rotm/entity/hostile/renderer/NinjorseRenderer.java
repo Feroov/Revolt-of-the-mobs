@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
@@ -45,5 +46,10 @@ public class NinjorseRenderer extends GeoEntityRenderer<Ninjorse>
         super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay,
                 red, green, blue, alpha);
         poseStack.scale(1.5F, 1.5F, 1.5F);
+    }
+
+    @Override
+    protected int getBlockLightLevel(Ninjorse entity, BlockPos blockPos) {
+        return 15;
     }
 }
