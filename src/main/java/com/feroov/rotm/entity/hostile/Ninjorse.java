@@ -5,6 +5,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -53,7 +54,7 @@ public class Ninjorse extends Monster implements GeoEntity
     {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new LeapAtTargetGoal(this, 0.6F));
+        this.goalSelector.addGoal(0, new LeapAtTargetGoal(this, 0.9F));
         this.goalSelector.addGoal(1, new NinjorseMeleeAttack(this, 1.30D, true));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Mob.class, 15.0F));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this,true));
@@ -94,7 +95,7 @@ public class Ninjorse extends Monster implements GeoEntity
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 3.25F; }
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 3.41F; }
 
     @Override
     protected void tickDeath()
@@ -137,7 +138,10 @@ public class Ninjorse extends Monster implements GeoEntity
         return PlayState.CONTINUE;
     }
 
-
+    @Override
+    public boolean causeFallDamage(float p_146828_, float p_146829_, DamageSource p_146830_) {
+        return false;
+    }
 
     @Override
     public boolean doHurtTarget(Entity entityIn)
