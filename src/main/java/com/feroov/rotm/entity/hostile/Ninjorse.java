@@ -54,7 +54,6 @@ public class Ninjorse extends Monster implements GeoEntity
     {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new LeapAtTargetGoal(this, 0.9F));
         this.goalSelector.addGoal(1, new NinjorseMeleeAttack(this, 1.30D, true));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Mob.class, 15.0F));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this,true));
