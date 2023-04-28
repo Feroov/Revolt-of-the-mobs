@@ -60,6 +60,12 @@ public class EntitiesROTM
                             .sized(1.2f, 3.4f).fireImmune().canSpawnFarFromPlayer()
                             .build(new ResourceLocation(ROTM.MOD_ID, "ninjorse").toString()));
 
+    public static final RegistryObject<EntityType<Gigahorse>> GIGAHORSE =
+            ENTITY_TYPES.register("gigahorse",
+                    () -> EntityType.Builder.of(Gigahorse::new, MobCategory.CREATURE)
+                            .sized(1.2f, 3.4f).fireImmune().canSpawnFarFromPlayer()
+                            .build(new ResourceLocation(ROTM.MOD_ID, "gigahorse").toString()));
+
     public static final RegistryObject<EntityType<CluckNorris>> CLUCKNORRIS =
             ENTITY_TYPES.register("clucknorris",
                     () -> EntityType.Builder.of(CluckNorris::new, MobCategory.CREATURE)
