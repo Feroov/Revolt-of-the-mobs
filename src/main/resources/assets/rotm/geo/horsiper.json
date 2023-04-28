@@ -131,46 +131,8 @@
 					]
 				},
 				{
-					"name": "rightleg",
-					"parent": "horsiper",
-					"pivot": [-4, 11, 0],
-					"cubes": [
-						{
-							"origin": [-5, 0, -2],
-							"size": [4, 11, 4],
-							"uv": {
-								"north": {"uv": [52, 25], "uv_size": [4, 11]},
-								"east": {"uv": [48, 25], "uv_size": [4, 11]},
-								"south": {"uv": [60, 25], "uv_size": [4, 11]},
-								"west": {"uv": [56, 25], "uv_size": [4, 11]},
-								"up": {"uv": [52, 21], "uv_size": [4, 4]},
-								"down": {"uv": [56, 25], "uv_size": [4, -4]}
-							}
-						}
-					]
-				},
-				{
-					"name": "leftleg",
-					"parent": "horsiper",
-					"pivot": [3, 11, 0],
-					"cubes": [
-						{
-							"origin": [1, 0, -2],
-							"size": [4, 11, 4],
-							"uv": {
-								"north": {"uv": [56, 25], "uv_size": [-4, 11]},
-								"east": {"uv": [60, 25], "uv_size": [-4, 11]},
-								"south": {"uv": [64, 25], "uv_size": [-4, 11]},
-								"west": {"uv": [52, 25], "uv_size": [-4, 11]},
-								"up": {"uv": [56, 21], "uv_size": [-4, 4]},
-								"down": {"uv": [60, 25], "uv_size": [-4, -4]}
-							}
-						}
-					]
-				},
-				{
 					"name": "rightarm",
-					"parent": "horsiper",
+					"parent": "head",
 					"pivot": [-5, 27, 0],
 					"rotation": [-90, 0, 0],
 					"cubes": [
@@ -495,13 +457,51 @@
 				},
 				{
 					"name": "leftarm",
-					"parent": "horsiper",
+					"parent": "head",
 					"pivot": [5, 27, 0],
 					"rotation": [-90, 0, 0],
 					"cubes": [
 						{
 							"origin": [5, 13, -1.9],
 							"size": [4, 15, 4],
+							"uv": {
+								"north": {"uv": [56, 25], "uv_size": [-4, 11]},
+								"east": {"uv": [60, 25], "uv_size": [-4, 11]},
+								"south": {"uv": [64, 25], "uv_size": [-4, 11]},
+								"west": {"uv": [52, 25], "uv_size": [-4, 11]},
+								"up": {"uv": [56, 21], "uv_size": [-4, 4]},
+								"down": {"uv": [60, 25], "uv_size": [-4, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "rightleg",
+					"parent": "horsiper",
+					"pivot": [-4, 11, 0],
+					"cubes": [
+						{
+							"origin": [-5, 0, -2],
+							"size": [4, 11, 4],
+							"uv": {
+								"north": {"uv": [52, 25], "uv_size": [4, 11]},
+								"east": {"uv": [48, 25], "uv_size": [4, 11]},
+								"south": {"uv": [60, 25], "uv_size": [4, 11]},
+								"west": {"uv": [56, 25], "uv_size": [4, 11]},
+								"up": {"uv": [52, 21], "uv_size": [4, 4]},
+								"down": {"uv": [56, 25], "uv_size": [4, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "leftleg",
+					"parent": "horsiper",
+					"pivot": [3, 11, 0],
+					"cubes": [
+						{
+							"origin": [1, 0, -2],
+							"size": [4, 11, 4],
 							"uv": {
 								"north": {"uv": [56, 25], "uv_size": [-4, 11]},
 								"east": {"uv": [60, 25], "uv_size": [-4, 11]},
