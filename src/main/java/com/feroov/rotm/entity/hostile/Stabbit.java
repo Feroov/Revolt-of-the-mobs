@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.AbstractGolem;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
@@ -47,18 +48,13 @@ public class Stabbit extends Monster implements GeoEntity
     {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new OpenDoorGoal(this,true));
+        this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.6D, false));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (p_28879_) -> {
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Stabbit);
         }));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Animal.class, true));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.73D));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 0.73D));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
