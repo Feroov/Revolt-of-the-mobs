@@ -5,7 +5,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,13 +13,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.AbstractGolem;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
@@ -30,7 +28,6 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 
-import static software.bernie.geckolib.constant.DefaultAnimations.FLY;
 
 public class Ninjorse extends Monster implements GeoEntity
 {
@@ -43,10 +40,10 @@ public class Ninjorse extends Monster implements GeoEntity
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 280.0D)
+                .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.42D)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
-                .add(Attributes.ATTACK_DAMAGE, 7.5D).build();
+                .add(Attributes.ATTACK_DAMAGE, 10.5D).build();
     }
 
     @Override
@@ -56,19 +53,14 @@ public class Ninjorse extends Monster implements GeoEntity
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new NinjorseMeleeAttack(this, 1.30D, true));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Mob.class, 15.0F));
-        this.goalSelector.addGoal(3, new OpenDoorGoal(this,true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Monster.class, 5, false, false, (livingEntity) -> {
+        this.goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
             return livingEntity instanceof Enemy && !(livingEntity instanceof Ninjorse) && !(livingEntity instanceof Horsiper);
         }));
-        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Ghast.class, true));
-        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Slime.class, true));
-        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true));
-        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, WaterAnimal.class, true));
-        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, true));
-        this.goalSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, AgeableMob.class, true));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.73D));
-        this.goalSelector.addGoal(8, new MoveTowardsRestrictionGoal(this, 0.73D));
+        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Animal.class, true));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.73D));
+        this.goalSelector.addGoal(7, new MoveTowardsRestrictionGoal(this, 0.73D));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
@@ -127,12 +119,17 @@ public class Ninjorse extends Monster implements GeoEntity
             return PlayState.CONTINUE;
         }
 
-        if(isAggressive())
+        if (!(walkAnimation.speed() > -0.10F && walkAnimation.speed() < 0.10F) && !this.isAggressive())
         {
             tAnimationState.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
             return PlayState.CONTINUE;
         }
 
+        if(isAggressive())
+        {
+            tAnimationState.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
+            return PlayState.CONTINUE;
+        }
         tAnimationState.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
@@ -154,6 +151,7 @@ public class Ninjorse extends Monster implements GeoEntity
             if (entityIn instanceof LivingEntity)
             {
                 ((LivingEntity)entityIn).addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100));
+                ((LivingEntity)entityIn).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100));
             }
             return true;
         }
@@ -174,7 +172,8 @@ public class Ninjorse extends Monster implements GeoEntity
     }
 
 
-    public static class NinjorseMeleeAttack extends MeleeAttackGoal {
+    public static class NinjorseMeleeAttack extends MeleeAttackGoal
+    {
         private Ninjorse entity;
         private int animCounter = 0;
         private int animTickLength = 19;
