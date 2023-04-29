@@ -11,5 +11,6 @@
   "item.rotm.clucknorris_spawn_egg": "Cluck Norris", "entity.rotm.clucknorris": "Cluck Norris",
   "item.rotm.monstertank_spawn_egg": "\u00A7eMOO-nster Tank", "entity.rotm.monstertank": "\u00A7eMOO-nster Tank",
   "item.rotm.mechamoo_spawn_egg": "\u00A74Mecha-MOO", "entity.rotm.mechamoo": "\u00A74Mecha-MOO",
-  "item.rotm.ninjorse_spawn_egg": "\u00A7eNinjorse", "entity.rotm.ninjorse": "\u00A7eNinjorse"
+  "item.rotm.ninjorse_spawn_egg": "\u00A7eNinjorse", "entity.rotm.ninjorse": "\u00A7eNinjorse",
+  "item.rotm.gigahorse_spawn_egg": "\u00A74Gigahorse", "entity.rotm.gigahorse": "\u00A74Gigahorse"
 }
