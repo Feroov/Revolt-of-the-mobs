@@ -20,6 +20,7 @@ public class EventsROTM
         event.put(EntitiesROTM.STABBIT.get(), Stabbit.setAttributes());
         event.put(EntitiesROTM.HORSIPER.get(), Horsiper.setAttributes());
         event.put(EntitiesROTM.NINJORSE.get(), Ninjorse.setAttributes());
+        event.put(EntitiesROTM.GIGAHORSE.get(), Gigahorse.setAttributes());
         event.put(EntitiesROTM.CLUCKNORRIS.get(), CluckNorris.setAttributes());
     }
 }

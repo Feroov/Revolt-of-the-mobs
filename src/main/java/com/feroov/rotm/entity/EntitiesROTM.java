@@ -57,7 +57,7 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<Ninjorse>> NINJORSE =
             ENTITY_TYPES.register("ninjorse",
                     () -> EntityType.Builder.of(Ninjorse::new, MobCategory.CREATURE)
-                            .sized(1.2f, 3.4f).fireImmune().canSpawnFarFromPlayer()
+                            .sized(1.0f, 2.8f).fireImmune().canSpawnFarFromPlayer()
                             .build(new ResourceLocation(ROTM.MOD_ID, "ninjorse").toString()));
 
     public static final RegistryObject<EntityType<Gigahorse>> GIGAHORSE =
