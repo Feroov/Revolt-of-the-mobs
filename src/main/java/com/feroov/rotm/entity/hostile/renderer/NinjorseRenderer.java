@@ -17,7 +17,7 @@ public class NinjorseRenderer extends GeoEntityRenderer<Ninjorse>
     public NinjorseRenderer(EntityRendererProvider.Context renderManager)
     {
         super(renderManager, new NinjorseModel());
-        this.shadowRadius = 0.74F;
+        this.shadowRadius = 0.54F;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class NinjorseRenderer extends GeoEntityRenderer<Ninjorse>
                           int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay,
                 red, green, blue, alpha);
-        poseStack.scale(1.5F, 1.5F, 1.5F);
+        poseStack.scale(1.2F, 1.2F, 1.2F);
     }
 
     @Override
