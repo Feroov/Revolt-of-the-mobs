@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
@@ -56,9 +57,10 @@ public class Ninjorse extends Monster implements GeoEntity
         this.goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
-            return livingEntity instanceof Enemy && !(livingEntity instanceof Ninjorse) && !(livingEntity instanceof Horsiper);
+            return livingEntity instanceof Enemy && !(livingEntity instanceof Ninjorse) && !(livingEntity instanceof Horsiper) && !(livingEntity instanceof Gigahorse);
         }));
         this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Animal.class, true));
+        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.73D));
         this.goalSelector.addGoal(7, new MoveTowardsRestrictionGoal(this, 0.73D));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -86,7 +88,7 @@ public class Ninjorse extends Monster implements GeoEntity
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 3.41F; }
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 2.5F; }
 
     @Override
     protected void tickDeath()

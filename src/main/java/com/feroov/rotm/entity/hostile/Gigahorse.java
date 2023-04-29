@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -41,10 +42,11 @@ public class Gigahorse extends Monster implements GeoEntity
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 200.0D)
+                .add(Attributes.MAX_HEALTH, 400.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.42D)
-                .add(Attributes.FOLLOW_RANGE, 40.0D)
-                .add(Attributes.ATTACK_DAMAGE, 10.5D).build();
+                .add(Attributes.FOLLOW_RANGE, 60.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 2.0D)
+                .add(Attributes.ATTACK_DAMAGE, 19.5D).build();
     }
 
     @Override
@@ -52,14 +54,15 @@ public class Gigahorse extends Monster implements GeoEntity
     {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new NinjorseMeleeAttack(this, 1.30D, true));
+        this.goalSelector.addGoal(1, new NinjorseMeleeAttack(this, 1.0D, true));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Mob.class, 15.0F));
         this.goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> {
-            return livingEntity instanceof Enemy && !(livingEntity instanceof Gigahorse) && !(livingEntity instanceof Horsiper);
+            return livingEntity instanceof Enemy && !(livingEntity instanceof Gigahorse) && !(livingEntity instanceof Horsiper) && !(livingEntity instanceof Ninjorse);
         }));
         this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Animal.class, true));
+        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.73D));
         this.goalSelector.addGoal(7, new MoveTowardsRestrictionGoal(this, 0.73D));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -68,26 +71,26 @@ public class Gigahorse extends Monster implements GeoEntity
     @Override
     protected SoundEvent getAmbientSound()
     {
-        this.playSound(SoundEvents.SKELETON_HORSE_AMBIENT, 1.0F, 0.2F);
+        this.playSound(SoundEvents.HORSE_ANGRY, 1.0F, 0.2F);
         return null;
     }
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
     {
-        this.playSound(SoundEvents.SKELETON_HORSE_HURT, 1.0F, 0.2F);
+        this.playSound(SoundEvents.ZOMBIE_HORSE_HURT, 1.0F, 0.2F);
         return null;
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        this.playSound(SoundEvents.SKELETON_HORSE_DEATH, 1.0F, 0.2F);
+        this.playSound(SoundEvents.IRON_GOLEM_DEATH, 1.0F, 0.2F);
         return null;
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 3.41F; }
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) { return 3.01F; }
 
     @Override
     protected void tickDeath()
@@ -151,8 +154,7 @@ public class Gigahorse extends Monster implements GeoEntity
         {
             if (entityIn instanceof LivingEntity)
             {
-                ((LivingEntity)entityIn).addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100));
-                ((LivingEntity)entityIn).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100));
+                ((LivingEntity)entityIn).addEffect(new MobEffectInstance(MobEffects.HUNGER, 100, 6));
             }
             return true;
         }
@@ -177,7 +179,7 @@ public class Gigahorse extends Monster implements GeoEntity
     {
         private Gigahorse entity;
         private int animCounter = 0;
-        private int animTickLength = 19;
+        private int animTickLength = 20;
 
         public NinjorseMeleeAttack(PathfinderMob mob, double speedModifier, boolean followingTargetEvenIfNotSeen)
         {
