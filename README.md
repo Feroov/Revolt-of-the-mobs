@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://imgur.com/WLRqQle.png" alt="Logo" width="700"/> 
+<img src="https://imgur.com/5LHpgKA.png" alt="Logo" width="700"/> 
 </p>
 
 # Revolt of the Mobs
