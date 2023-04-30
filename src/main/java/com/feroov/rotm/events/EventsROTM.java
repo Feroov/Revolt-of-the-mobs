@@ -22,5 +22,6 @@ public class EventsROTM
         event.put(EntitiesROTM.NINJORSE.get(), Ninjorse.setAttributes());
         event.put(EntitiesROTM.GIGAHORSE.get(), Gigahorse.setAttributes());
         event.put(EntitiesROTM.CLUCKNORRIS.get(), CluckNorris.setAttributes());
+        event.put(EntitiesROTM.HELICOCKTER.get(), Helicockter.setAttributes());
     }
 }

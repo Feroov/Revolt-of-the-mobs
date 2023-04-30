@@ -28,6 +28,7 @@ public class ClientModEvents
         event.registerEntityRenderer(EntitiesROTM.NINJORSE.get(), NinjorseRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.GIGAHORSE.get(), GigahorseRenderer::new);
         event.registerEntityRenderer(EntitiesROTM.CLUCKNORRIS.get(), CluckNorrisRenderer::new);
+        event.registerEntityRenderer(EntitiesROTM.HELICOCKTER.get(), HelicockterRenderer::new);
 
         // Misc
         event.registerEntityRenderer(EntitiesROTM.RIFLE_AMMO.get(), RifleAmmoRenderer::new);
