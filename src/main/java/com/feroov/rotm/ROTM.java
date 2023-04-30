@@ -43,6 +43,7 @@ public class ROTM
             event.accept(ItemsROTM.NINJORSE_SPAWN_EGG);
             event.accept(ItemsROTM.GIGAHORSE_SPAWN_EGG);
             event.accept(ItemsROTM.CLUCKNORRIS_SPAWN_EGG);
+            event.accept(ItemsROTM.HELICOCKTER_SPAWN_EGG);
         }
     }
 }

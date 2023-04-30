@@ -60,6 +60,9 @@ public class ItemsROTM
     public static final RegistryObject<Item> CLUCKNORRIS_SPAWN_EGG = ITEMS.register("clucknorris_spawn_egg",
             () -> new ForgeSpawnEggItem(EntitiesROTM.CLUCKNORRIS, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 
+    public static final RegistryObject<Item> HELICOCKTER_SPAWN_EGG = ITEMS.register("helicockter_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntitiesROTM.HELICOCKTER, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
+
 
     public static void register(IEventBus eventBus)
     {
