@@ -20,6 +20,8 @@ public class SoundEventsROTM
     public static final RegistryObject<SoundEvent> TANK_SHOT = SOUND_EVENTS.register("tank", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "tank")));
     public static final RegistryObject<SoundEvent> TANK_IDLE = SOUND_EVENTS.register("tank_idle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "tank_idle")));
     public static final RegistryObject<SoundEvent> MECHAMOO_SHOT = SOUND_EVENTS.register("mechamoo_shot", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "mechamoo_shot")));
+    public static final RegistryObject<SoundEvent> HELICOCKTER_IDLE = SOUND_EVENTS.register("helicockter_idle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "helicockter_idle")));
+    public static final RegistryObject<SoundEvent> HELICOCKTER_SHOT = SOUND_EVENTS.register("helicockter_shot", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ROTM.MOD_ID, "helicockter_shot")));
 
     public static void register(IEventBus eventBus) { SOUND_EVENTS.register(eventBus); }
 }
