@@ -6,5 +6,7 @@
   "deagle": {"category": "hostile", "sounds": [{"name": "rotm:deagle"}], "subtitle": "rotm.deagle"},
   "tank": {"category": "hostile", "sounds": [{"name": "rotm:tank"}], "subtitle": "rotm.tank"},
   "tank_idle": {"category": "hostile", "sounds": [{"name": "rotm:tank_idle"}], "subtitle": "rotm.tank_idle"},
-  "mechamoo_shot": {"category": "hostile", "sounds": [{"name": "rotm:mechamoo_shot"}], "subtitle": "rotm.mechamoo_shot"}
+  "mechamoo_shot": {"category": "hostile", "sounds": [{"name": "rotm:mechamoo_shot"}], "subtitle": "rotm.mechamoo_shot"},
+  "helicockter_idle": {"category": "hostile", "sounds": [{"name": "rotm:helicockter_idle"}], "subtitle": "rotm.helicockter_idle"},
+  "helicockter_shot": {"category": "hostile", "sounds": [{"name": "rotm:helicockter_shot"}], "subtitle": "rotm.helicockter_shot"}
 }
