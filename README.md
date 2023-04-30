@@ -4,8 +4,7 @@
 
 # Revolt of the Mobs
 
-This Minecraft mod introduces a new type of hostile mobs to the game where animals are equipped with firearms. These mobs will attack anything and everything on sight, creating a new challenge for players.
-
+Revolt of the Mobs is a Forge mod (1.19.4) where it adds fierce new mobs that attack anything on sight whether it is a player or a passive mob. Currently, it adds 9 new mobs to Minecraft. The idea is there will be 3 tiers of the existing mob theme, For example for the cow the tier one is CowPG which wields an RPG, Then we have MOO-nster Tank, which you guessed it a cow riding a tank that is tier two, and for final tier Mecha-MOO which is a Mech that Cow rides.
 
 ## Bugs
 
