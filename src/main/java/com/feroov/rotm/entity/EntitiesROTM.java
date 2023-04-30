@@ -72,6 +72,12 @@ public class EntitiesROTM
                             .sized(0.7f, 1.2f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "clucknorris").toString()));
 
+    public static final RegistryObject<EntityType<Helicockter>> HELICOCKTER =
+            ENTITY_TYPES.register("helicockter",
+                    () -> EntityType.Builder.of(Helicockter::new, MobCategory.CREATURE)
+                            .sized(2.7f, 2.2f)
+                            .build(new ResourceLocation(ROTM.MOD_ID, "helicockter").toString()));
+
 
 
     // Projectiles
