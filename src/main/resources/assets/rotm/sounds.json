@@ -1,12 +1,12 @@
 {
-  "gunswine_death": {"category": "hostile", "sounds": [{"name": "rotm:gunswine_death"}], "subtitle": "rotm.gunswine_death"},
-  "ak47": {"category": "hostile", "sounds": [{"name": "rotm:ak47"}], "subtitle": "rotm.ak47"},
-  "rocket": {"category": "hostile", "sounds": [{"name": "rotm:rocket"}], "subtitle": "rotm.rocket"},
-  "50cal": {"category": "hostile", "sounds": [{"name": "rotm:50cal"}], "subtitle": "rotm.50cal"},
-  "deagle": {"category": "hostile", "sounds": [{"name": "rotm:deagle"}], "subtitle": "rotm.deagle"},
-  "tank": {"category": "hostile", "sounds": [{"name": "rotm:tank"}], "subtitle": "rotm.tank"},
-  "tank_idle": {"category": "hostile", "sounds": [{"name": "rotm:tank_idle"}], "subtitle": "rotm.tank_idle"},
-  "mechamoo_shot": {"category": "hostile", "sounds": [{"name": "rotm:mechamoo_shot"}], "subtitle": "rotm.mechamoo_shot"},
-  "helicockter_idle": {"category": "hostile", "sounds": [{"name": "rotm:helicockter_idle"}], "subtitle": "rotm.helicockter_idle"},
-  "helicockter_shot": {"category": "hostile", "sounds": [{"name": "rotm:helicockter_shot"}], "subtitle": "rotm.helicockter_shot"}
+  "gunswine_death": {"sounds": [{"name": "rotm:gunswine_death"}], "subtitle": "rotm.gunswine_death"},
+  "ak47": {"sounds": [{"name": "rotm:ak47"}], "subtitle": "rotm.ak47"},
+  "rocket": {"sounds": [{"name": "rotm:rocket"}], "subtitle": "rotm.rocket"},
+  "50cal": {"sounds": [{"name": "rotm:50cal"}], "subtitle": "rotm.50cal"},
+  "deagle": {"sounds": [{"name": "rotm:deagle"}], "subtitle": "rotm.deagle"},
+  "tank": {"sounds": [{"name": "rotm:tank"}], "subtitle": "rotm.tank"},
+  "tank_idle": {"sounds": [{"name": "rotm:tank_idle"}], "subtitle": "rotm.tank_idle"},
+  "mechamoo_shot": {"sounds": [{"name": "rotm:mechamoo_shot"}], "subtitle": "rotm.mechamoo_shot"},
+  "helicockter_idle": {"sounds": [{"name": "rotm:helicockter_idle"}], "subtitle": "rotm.helicockter_idle"},
+  "helicockter_shot": {"sounds": [{"name": "rotm:helicockter_shot"}], "subtitle": "rotm.helicockter_shot"}
 }
