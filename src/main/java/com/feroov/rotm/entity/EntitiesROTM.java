@@ -75,7 +75,7 @@ public class EntitiesROTM
     public static final RegistryObject<EntityType<Helicockter>> HELICOCKTER =
             ENTITY_TYPES.register("helicockter",
                     () -> EntityType.Builder.of(Helicockter::new, MobCategory.CREATURE)
-                            .sized(2.7f, 2.2f)
+                            .sized(5.0f, 4.0f)
                             .build(new ResourceLocation(ROTM.MOD_ID, "helicockter").toString()));
 
 
