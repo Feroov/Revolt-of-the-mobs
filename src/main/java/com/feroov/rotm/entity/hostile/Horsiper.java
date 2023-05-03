@@ -66,6 +66,7 @@ public class Horsiper extends Monster implements GeoEntity
             return livingEntity instanceof Enemy && !(livingEntity instanceof Horsiper) && !(livingEntity instanceof Ninjorse) && !(livingEntity instanceof Gigahorse);
         }));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Animal.class, true));
+        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, FlyingMob.class, true));
         this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.goalSelector.addGoal(4, new HorsiperRangedAttackGoal(this, 0.1D, 40.0D, 35.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
