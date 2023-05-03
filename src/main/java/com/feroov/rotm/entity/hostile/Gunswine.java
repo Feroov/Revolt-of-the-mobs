@@ -63,6 +63,7 @@ public class Gunswine extends Monster implements GeoEntity
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Gunswine);
         }));
         this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Animal.class, true));
+        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, FlyingMob.class, true));
         this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.goalSelector.addGoal(4, new GunswineRangedAttackGoal(this, 0.10D, 5.3D, 20.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
