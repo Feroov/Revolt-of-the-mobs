@@ -21,6 +21,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -67,7 +68,8 @@ public class MonsterTank extends Monster implements GeoEntity
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new OpenDoorGoal(this,true));
         this.targetSelector.addGoal(2, new MonsterTankAttackGoal(this, 0.4D, true, 3));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !(p_28879_ instanceof Cowpg) && !(p_28879_ instanceof MonsterTank) && !(p_28879_ instanceof Mechamoo);
         }));
