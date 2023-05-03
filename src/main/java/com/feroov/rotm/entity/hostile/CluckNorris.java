@@ -63,9 +63,10 @@ public class CluckNorris extends Monster implements GeoEntity
         this.goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> {
-            return p_28879_ instanceof Enemy && !(p_28879_ instanceof CluckNorris);
+            return p_28879_ instanceof Enemy && !(p_28879_ instanceof CluckNorris) && !(p_28879_ instanceof  Helicockter);
         }));
         this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Animal.class, true));
+        this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, FlyingMob.class, true));
         this.goalSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.goalSelector.addGoal(4, new CluckNorrisRangedAttackGoal(this, 0.4D, 22.0D, 19.0F, 0));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.4D));
